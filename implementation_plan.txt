@@ -1,0 +1,3 @@
+html crawling and parsing : jsoup
+주소 입력 : naver posting
+tistory posting : tistory OPEN API
