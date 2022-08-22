@@ -19,7 +19,7 @@ public class URLProcessor {
      * If the inputURL is in the format of processedPattern, processing is not necessary.
      * Otherwise, inputURL is invalid URL
      * 
-     * @param inputURL : Given URL
+     * @param inputURL - given URL
      * @return enum of URLType. INVALID if invalid, RAW if inputURL need to be processed, PROCESSED if inputURL is already processed
      */
     URLType getNaverBlogURLType(String inputURL){
@@ -33,7 +33,7 @@ public class URLProcessor {
      * 
      * @param inputURL - Naver Blog URL
      * @return processedPattern format URL
-     * @throws Exception If inputURL is not Naver Blog URL format, then throw with error message
+     * @throws Exception if inputURL is not Naver Blog URL format, then throw with error message
      */
     public String getOriginURL(String inputURL) throws Exception{
         URLType urlType = getNaverBlogURLType(inputURL);
