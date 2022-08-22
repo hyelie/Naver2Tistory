@@ -6,8 +6,10 @@ public class Authorization {
 
     }
 
-    // tistory post
+    // Post to Tistory
     void tistory_post(){
         
     }
+
+    
 }
