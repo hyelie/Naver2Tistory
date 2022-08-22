@@ -13,7 +13,7 @@ public class Converter {
     private Elements post;
     private enum ResponseMessage{
         NOT_FOUND("유효하지 않은 요청입니다. 해당 블로그가 없습니다. 블로그 아이디를 확인해 주세요."),      // Invalid blog ID
-        NO_CONTENT("삭제되거나, 존재하지 않거나, 비공개 글이거나, 구버전 포스팅입니다."),                   // Deleted, private or old version of Naver Editor
+        NO_CONTENT("삭제되거나, 존재하지 않거나, 비공개 글이거나, 구버전 포스팅입니다."),                   // Deleted, private or written by old version of Naver Editor
         INTERNAL_ERROR("예상치 못한 에러가 발생했습니다.");                                                 // Unexpected error
 
         private final String label;
@@ -28,7 +28,7 @@ public class Converter {
      * 
      * @param URL - Given URL to crawl
      * @throws Exception when data is not received
-     * because of deleted, private, different editor version, no blog ID,
+     * because of deleted, private, old editor version, no blog ID,
      * or an unexpected error while receiving data while crawling.
      */
     public void crawl(String URL) throws Exception{
@@ -38,7 +38,7 @@ public class Converter {
             if (response.statusCode() == 200) {
                 this.doc = con.get();
                 this.post = doc.select(".se-viewer");
-                if(post.size() == 0){ // 삭제된/존재하지 않는 게시글 또는 비공개글 또는 구버전 네이버 글
+                if(post.size() == 0){ // 삭제된/존재하지 않는/비공개 게시글 또는 구버전 네이버 에디터로 작성한 게시글
                     throw new Exception(ResponseMessage.NO_CONTENT.toString());
                 }
             } else{ // blogId가 틀린 경우
