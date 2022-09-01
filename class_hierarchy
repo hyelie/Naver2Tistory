@@ -13,25 +13,26 @@ se-viewer                                                               # 포스
                 - ...
             - blog2_post_function                                       # URL복사, 이웃 추가 버튼 (필요 X)
                 - ...
-- se-main-container                                                     # 본문
+- se-main-container                                                 # 본문
     - se-component se-{TYPE}
         - se-component-content
             - se-section se-section-{TYPE}
-                - se-module se-module-{TYPE}
-                    - se-text-paragraph                                 # 글
-                    - se-code-source                                    # 소스 코드
-                        - se-code-view
-                    - se-module se-module-image                         # 이미지
-                      se-module se-module text se-caption               # 이미지 다음으로 따라오는 캡션
-                    - se-module se-module-horizontalLine                # 구분선
-                    - se-module se-module-oglink                        # 링크
-                - se-quotation-container                                # 인용구 container
-                    - se-module se-module-text se-quote                 # 인용글
-                        - se-text-paragraph                             # 인용글 텍스트
-                    - se-module se-module-text se-cite                  # 인용자
-                        - se-text-paragraph                             # 인용자 텍스트
-                - se-table-container                                    # 표 container
-                    - se-table-content                                  # tbody로 시작하는 table 내용
+                - se-module se-module-text                          # 글
+                  - se-text-paragraph                                   # 문단
+                - se-module se-module-code                          # 소스 코드
+                  - se-code-source                                  
+                      - __se_code_view
+                - se-module se-module-image                         # 이미지
+                  se-module se-module-text se-caption               # 이미지 다음으로 따라오는 캡션
+                - se-module se-module-horizontalLine                # 구분선
+                - se-module se-module-oglink                        # 링크
+                - se-quotation-container                            # 인용구 container
+                    - se-module se-module-text se-quote             # 인용글
+                        - se-text-paragraph                         # 인용글 텍스트
+                    - se-module se-module-text se-cite              # 인용자
+                        - se-text-paragraph                         # 인용자 텍스트
+                - se-table-container                                # 표 container
+                    - se-table-content                              # tbody로 시작하는 table 내용
 
 # quotation과 table은 조금 예외적으로 se-{TYPE}-container를 사용한다
 # TYPE은 text, code, image, quotation, horizontalLine, oglink, table
