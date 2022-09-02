@@ -34,6 +34,7 @@ public class URLProcessor {
      * @param inputURL - Naver Blog URL
      * @return processedPattern format URL
      * @throws Exception if inputURL is not Naver Blog URL format, then throw with error message
+     * @see URLProcessor#getNaverBlogURLType(String)
      */
     public String getOriginURL(String inputURL) throws Exception{
         URLType urlType = getNaverBlogURLType(inputURL);

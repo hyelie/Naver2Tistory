@@ -50,6 +50,15 @@ public class Converter {
     }
 
     /**
+     * Getter of title
+     * @return title of current post
+     */
+    public String getTitle(){
+        return this.title;
+    }
+
+    
+    /**
      * Getter of result
      * @return stylized result
      */
@@ -58,15 +67,7 @@ public class Converter {
     }
 
     /**
-     * Getter of title
-     * @return title of current post
-     */
-    public String getTitle(){
-        return this.title;
-    }
-
-    /**
-     * Extract post from HTML documnet and store in the attribute
+     * Extract post from HTML document and store in the attribute
      * 
      * @param doc - given document go get post
      * @throws Exception when data does not received because of
@@ -80,7 +81,7 @@ public class Converter {
     }
 
     /**
-     * Extract title from post and store in the attribute
+     * Extract title from post and store in the attribute 'title'
      * 
      * @throws Exception when data does not exist because of
      * deleted/private post, or written by old version editor.
@@ -94,7 +95,7 @@ public class Converter {
     }
 
     /**
-     * Extract content from post and store in the attribute
+     * Extract content from post and store in the attribute 'content'
      * 
      * @throws Exception when data does not exist because of
      * deleted/private post, or written by old version editor.
@@ -165,7 +166,13 @@ public class Converter {
 		}
     }
 
-    // convert crawled naver blog HTML to tistory HTML
+    
+    /**
+     * Stylize naver blog content to tistory format
+     * and store result in the attribute 'result'.
+     * 
+     * @see Converter#dfsDOM(Elements)
+     */
     public void stylize(){
         this.result = "";
         // stylize with HTML DOM DFS traversal
