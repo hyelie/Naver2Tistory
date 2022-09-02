@@ -2,11 +2,10 @@ package convert;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
-import java.io.IOException;
-
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
+
+import java.io.IOException;
 
 public class Crawler {
     private Document doc;

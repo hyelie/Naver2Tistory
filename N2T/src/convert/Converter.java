@@ -9,6 +9,10 @@ import org.jsoup.select.Elements;
 
 public class Converter {
     private Elements post;
+    private String title;
+    private Elements content;
+    private String result;
+    
     // Regular expression filtering [se-section se-section-{TYPE}] format
     private Pattern sectionForm = Pattern.compile("se-section se-section-([A-za-z]*)");
     /**
@@ -46,13 +50,29 @@ public class Converter {
     }
 
     /**
-     * Get naver blog post and store in the attribute
+     * Getter of result
+     * @return stylized result
+     */
+    public String getResult(){
+        return this.result;
+    }
+
+    /**
+     * Getter of title
+     * @return title of current post
+     */
+    public String getTitle(){
+        return this.title;
+    }
+
+    /**
+     * Extract post from HTML documnet and store in the attribute
      * 
      * @param doc - given document go get post
      * @throws Exception when data does not received because of
      * deleted/private post, or written by old version editor.
      */ 
-    void setPost(Document doc) throws Exception{
+    public void setPost(Document doc) throws Exception{
         this.post = doc.select(".se-viewer");
         if(post.size() == 0){ // 삭제된/존재하지 않는/비공개 게시글 또는 구버전 네이버 에디터로 작성한 게시글
             throw new Exception(ResponseMessage.NO_CONTENT.getLabel());
@@ -60,29 +80,31 @@ public class Converter {
     }
 
     /**
-     * @return title from naver blog post
+     * Extract title from post and store in the attribute
+     * 
      * @throws Exception when data does not exist because of
      * deleted/private post, or written by old version editor.
      */
-    public String getPostTitle() throws Exception{
+    public void extractTitle() throws Exception{
         Elements head = post.select(".pcol1"); // Naver blog 제목이 있는 class
 		if(head.size() == 0){
 			throw new Exception(ResponseMessage.NO_CONTENT.getLabel());
 		}
-        return head.text();
+        this.title = head.text();
     }
 
     /**
-     * @return content from naver blog post
+     * Extract content from post and store in the attribute
+     * 
      * @throws Exception when data does not exist because of
      * deleted/private post, or written by old version editor.
      */
-    public Elements getPostContent() throws Exception{
+    public void extractContent() throws Exception{
         Elements content = post.select(".se-main-container"); // Naver blog 제목이 있는 class
 		if(content.size() == 0){
 			throw new Exception(ResponseMessage.NO_CONTENT.getLabel());
 		}
-        return content;
+        this.content = content;
     }
 
     /**
@@ -105,20 +127,21 @@ public class Converter {
      */
     private void dfsDOM(Elements elements){
         for(Element element : elements){
+            // If section type exists, then stylize
             ContentType elementContentType = getContentType(element);
-            // If type exists, then stylize
+            
             // table이면 tistory 형식에 맞게
             if(elementContentType == ContentType.TABLE){
                 
             }
             // quotation이면 se-quote module과 se-cite module을 print
             else if(elementContentType == ContentType.QUOTATION){
-                
-            }
-            else if(elementContentType == ContentType.TEXT){
 
             }
             // text면 module의 child를 전부 print
+            else if(elementContentType == ContentType.TEXT){
+
+            }
             // code면 module의 text를 print
             else if(elementContentType == ContentType.CODE){
 
@@ -143,9 +166,10 @@ public class Converter {
     }
 
     // convert crawled naver blog HTML to tistory HTML
-    public void stylize(Elements content){
+    public void stylize(){
+        this.result = "";
         // stylize with HTML DOM DFS traversal
         // 각 container의 type에 맞게 고침
-
+        dfsDOM(this.content);
     }
 }
