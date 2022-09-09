@@ -15,6 +15,7 @@ public class Converter {
     
     // Regular expression filtering [se-section se-section-{TYPE}] format
     private Pattern sectionForm = Pattern.compile("se-section se-section-([A-za-z]*)");
+    
     /**
      * Content Type in Naver Blog Post
      * 
@@ -56,7 +57,6 @@ public class Converter {
     public String getTitle(){
         return this.title;
     }
-
     
     /**
      * Getter of result
@@ -121,44 +121,105 @@ public class Converter {
     }
 
     /**
+     * convert ContentType.TABLE 'element' to Tistory format
+     * @param element should be converted to table.
+     */
+    void convertTable(Element element){
+        // table이면 tistory 형식에 맞게
+    }
+
+    /**
+     * convert ContentType.QUOTATION 'element' to Tistory format
+     * @param element should be converted to quotation.
+     */
+    void convertQUOTATION(Element element){
+        // quotation이면 se-quote module과 se-cite module을 print
+    }
+
+    /**
+     * convert ContentType.TEXT 'element' to Tistory format
+     * @param element should be converted to text.
+     */
+    void convertTEXT(Element element){
+        // text면 module의 child를 전부 print
+    }
+
+    /**
+     * convert ContentType.CODE 'element' to Tistory format
+     * @param element should be converted to code.
+     */
+    void convertCODE(Element element){
+        // code면 module의 text를 print
+    }
+
+    /**
+     * convert ContentType.IMAGE 'element' to Tistory format
+     * @param element should be converted to image.
+     */
+    void convertIMAGE(Element element){
+        // image면 image module, caption module의 text를 찾아 print
+    }
+
+    /**
+     * convert ContentType.HORIZONTALLINE 'element' to Tistory format
+     * @param element should be converted to horizontalLine.
+     */
+    void convertHORIZONTALLINE(Element element){
+        // horizontalLine이면 tistory 형식에 맞게 print
+    }
+
+    /**
+     * convert ContentType.LINK 'element' to Tistory format
+     * @param element should be converted to link.
+     */
+    void convertLINK(Element element){
+        // oglink면 link를 print
+    }
+
+    /**
      * Traverse childs of given parameter 'elements'.
      * While traversal, reform it's HTML element to Tistory style.
      * 
      * @param elements which want to traverse.
+     * @see Converter#convertTable(Element)
+     * @see Converter#convertQUOTATION(Element)
+     * @see Converter#convertTEXT(Element)
+     * @see Converter#convertCODE(Element)
+     * @see Converter#convertIMAGE(Element)
+     * @see Converter#convertHORIZONTALLINE(Element)
+     * @see Converter#convertLINK(Element)
      */
     private void dfsDOM(Elements elements){
         for(Element element : elements){
-            // If section type exists, then stylize
             ContentType elementContentType = getContentType(element);
-            
-            // table이면 tistory 형식에 맞게
+
+            // If section type exists, then stylize
             if(elementContentType == ContentType.TABLE){
-                
+                this.convertTable(element);
             }
-            // quotation이면 se-quote module과 se-cite module을 print
             else if(elementContentType == ContentType.QUOTATION){
-
+                this.convertQUOTATION(element);
             }
-            // text면 module의 child를 전부 print
             else if(elementContentType == ContentType.TEXT){
-
+                this.convertTEXT(element);
             }
-            // code면 module의 text를 print
+            
             else if(elementContentType == ContentType.CODE){
-
+                this.convertCODE(element);
             }
-            // image면 image module, caption module의 text를 찾아 print
+            
             else if(elementContentType == ContentType.IMAGE){
-
+                this.convertIMAGE(element);
             }
-            // horizontalLine이면 tistory 형식에 맞게 print
+            
             else if(elementContentType == ContentType.HORIZONTALLINE){
-
+                this.convertHORIZONTALLINE(element);
             }
-            // oglink면 link를 print
+            
             else if(elementContentType == ContentType.LINK){
-
+                this.convertLINK(element);
             }
+
             // else then traverse deeper.
             else{ // elementContentType == ContentType.NOTHING
                 dfsDOM(element.children());
