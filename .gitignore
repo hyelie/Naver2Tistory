@@ -4,3 +4,4 @@ references/*
 *.class
 API_KEY
 N2T/bin/*
+N2T/bin/JRunner.java
