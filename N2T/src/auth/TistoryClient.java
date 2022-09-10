@@ -9,8 +9,6 @@ import java.net.URISyntaxException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.awt.Desktop;
-import java.net.URI;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,6 +18,7 @@ public class TistoryClient {
     private String appId;
     private String secretKey;
     private String blogName;
+    public String getBlogName(){ return this.blogName; }
     private String code;
     private String accessToken;
 
@@ -60,7 +59,7 @@ public class TistoryClient {
         try{
             System.out.println("            다음 링크를 인터넷 창에 입력해 주세요.");
             System.out.println("            " + issueCodeURL);
-            // Desktop.getDesktop().browse(new URI(issueCodeURL)); // TODO: desktop에서 작동하는지 확인.
+            Util.openWindow(issueCodeURL);
             this.code = Util.getInput("            발급받은 Code를 입력해 주세요.");
         }
         catch (Exception e){
@@ -143,6 +142,10 @@ public class TistoryClient {
     /**
      * Upload post in Tistory. If error occurs while posting,
      * then throws Exception.
+     * 
+     * @param title - posting title
+     * @param content - posting content
+     * @throws Exception when exception occur while checking or issuing token.
      */
     public void post(String title, String content) throws Exception {
         try{

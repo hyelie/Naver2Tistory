@@ -180,7 +180,7 @@ public class Converter {
      * Traverse childs of given parameter 'elements'.
      * While traversal, reform it's HTML element to Tistory style.
      * 
-     * @param elements which want to traverse.
+     * @param elements is which want to traverse.
      * @see Converter#convertTable(Element)
      * @see Converter#convertQUOTATION(Element)
      * @see Converter#convertTEXT(Element)

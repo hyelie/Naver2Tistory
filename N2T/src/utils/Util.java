@@ -1,5 +1,8 @@
 package utils;
 
+import java.awt.Desktop;
+import java.net.URI;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
@@ -12,7 +15,7 @@ import java.util.Scanner;
 public class Util {
     /**
      * Print 'message', get input, and return.
-     * @param message shown to user.
+     * @param message - showing message to user.
      * @return input string.
      */
     public static String getInput(String message){
@@ -24,8 +27,8 @@ public class Util {
     }
 
     /**
-     * @param path - file path want to read.
-     * @return string array in file.
+     * @param path - given file path want to read.
+     * @return String array in the file.
      * @throws Exception when file does not exist.
      */
     public static List<String> readFile(Path path) throws Exception{
@@ -43,8 +46,24 @@ public class Util {
 
     }
 
+    /**
+     * Get absolute path of current directory
+     */
     public static String getCurrentDirectory(){
         Path path = FileSystems.getDefault().getPath("");
 		return path.toAbsolutePath().toString();
     }    
+
+    /**
+     * Opens a new Internet window corresponding to the URL.
+     * @param url - given URL which want to open.
+     */
+    public static void openWindow(String url){
+        try{
+            Desktop.getDesktop().browse(new URI(url)); // TODO: desktop에서 작동하는지 확인.
+        }
+        catch(Exception E){
+            return;
+        }
+    }
 }
