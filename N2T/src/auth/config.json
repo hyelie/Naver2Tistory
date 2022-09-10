@@ -1,6 +1,5 @@
 {
-    "APP_ID" : "Tistory Open API App ID",
-    "SECRET_KEY" : "Tistory Open API Secret Key",
-    "USER_ID" : "Tistory ID",
-    "BLOG_NAME" : "Tistory Blog ID"
+    "APP_ID" : null,
+    "SECRET_KEY" : null,
+    "BLOG_NAME" : null
 }

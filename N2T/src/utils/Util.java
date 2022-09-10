@@ -5,13 +5,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 // 파일입출력 등 귀찮은 것들 모아둠
 public class Util {
-    // 입력 메시지 출력해주고, 입력받고 리턴
+    /**
+     * Print 'message', get input, and return.
+     * @param message shown to user.
+     * @return input string.
+     */
     public static String getInput(String message){
         Scanner scan = new Scanner(System.in); 
         System.out.println(message);
@@ -20,18 +23,11 @@ public class Util {
         return inputString;
     }
 
-    public static void getConfig(){
-
-    }
-    // config가 정상작동 하는지
-    public static void testConfig(){
-
-    }
-
-    public static void setConfig(){
-        
-    }
-
+    /**
+     * @param path - file path want to read.
+     * @return string array in file.
+     * @throws Exception when file does not exist.
+     */
     public static List<String> readFile(Path path) throws Exception{
         try {
             List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);

@@ -17,11 +17,11 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class TistoryClient {
-    private String code;
     private String appId;
     private String secretKey;
-    private String accessToken;
     private String blogName;
+    private String code;
+    private String accessToken;
 
     /**
      * Construct TistoryClient object using config.json file.
@@ -31,15 +31,19 @@ public class TistoryClient {
     public TistoryClient() throws Exception{
         try{
             JSONParser parser = new JSONParser();
-            Reader reader = new FileReader("./N2T/src/auth/config.json");
+            Reader reader = new FileReader(Util.getCurrentDirectory() + "/N2T/src/auth/config.json");
             JSONObject config = (JSONObject) parser.parse(reader);
             this.appId = (String) config.getOrDefault("APP_ID", null);
             this.secretKey = (String) config.getOrDefault("SECRET_KEY", null);
             this.blogName = (String) config.getOrDefault("BLOG_NAME", null);
+            if(this.appId == null || this.secretKey == null || this.blogName == null) throw new NullPointerException();
         }
         catch(Exception e){
             if(e instanceof FileNotFoundException){
-                throw new Exception("[초기화 오류] : config 파일이 없습니다.");
+                throw new Exception("[초기화 오류] : config.json 파일이 없습니다.");
+            }
+            else if(e instanceof NullPointerException){
+                throw new Exception("[초기화 오류] : config.json 파일에 값이 없습니다.");
             }
             else{
                 throw new Exception("[초기화 오류] : 초기화 중 알 수 없는 오류가 발생했습니다.");
