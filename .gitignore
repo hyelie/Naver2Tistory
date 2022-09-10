@@ -4,4 +4,5 @@ references/*
 *.class
 API_KEY
 N2T/bin/*
-N2T/bin/JRunner.java
+N2T/src/JRunner.java
+N2T/src/auth/config_test.json
