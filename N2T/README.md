@@ -17,9 +17,15 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
 
+## 실행 전
+src/auth/config.json에 있는 정보를 채워 넣어야 합니다.
+APP_ID : 티스토리 Open API에서 설정하는 App ID
+SECRET_KEY : 티스토리 Open API에서 설정하는 Secret Key
+BLOG_NAME : 포스팅 할 블로그 이름
+
 ## 버전 변경
 네이버 블로그 스마트 에디터 버전, 또는 티스토리 에디터 버전 변경으로 인해 HTML이 수정되었을 경우 Converter.java의 dfsDOM을 수정하면 됨.
 
 ## TODO : 티스토리 로그인, 포스팅 / 네이버 블로그 구조 tistory로 변경 / 이미지 올리는 법 찾기 / 코드 개행 넣어서 올리는 법 찾기
 
-## 다음 TODO : 글 폰트 따서 대/중/소제목으로 선택. paragraph에 size가 있으니까 골라서 24 대제목 19 중제목 16 소제목으로. 이건 json으로 빼서 사용자가 선택 가능하게. ->1.0.1
+## 다음 TODO : 글 폰트 따서 대/중/소제목으로 선택. paragraph에 size가 있으니까 골라서 24 대제목 19 중제목 16 소제목으로. 이건 json으로 빼서 사용자가 선택 가능하게. + category 선택 기능도->1.0.1
