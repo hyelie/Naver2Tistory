@@ -22,7 +22,7 @@ public class URLProcessor {
      * @param inputURL - given URL
      * @return enum of URLType. INVALID if invalid, RAW if inputURL need to be processed, PROCESSED if inputURL is already processed
      */
-    URLType getNaverBlogURLType(String inputURL){
+    private URLType getNaverBlogURLType(String inputURL){
         if(inputURL.matches(this.processedPattern.toString())) return URLType.PROCESSED;
         else if(inputURL.matches(this.rawPattern.toString())) return URLType.RAW;
         else return URLType.INVALID;
@@ -52,7 +52,7 @@ public class URLProcessor {
             return result;
         }
         else { // urlType == URLType.INVALID
-            throw new Exception("잘못된 URL입니다");
+            throw new Exception("[URL 작업 중 오류] : 잘못된 URL입니다");
         }
     }
 }
