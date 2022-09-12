@@ -20,9 +20,11 @@ public class HttpConnection {
 	 * @throws Exception when connection timeout, or refused, otherwise.
 	 */
 	public static HttpConnectionVO connect(String targetURL, String type, String parameter) throws Exception {
+		HttpURLConnection con = null;
+		BufferedReader in = null;
 		try {
 			URL url = new URL(targetURL);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con = (HttpURLConnection) url.openConnection();
 
 			// 연결 type 지정
 			con.setRequestMethod(type);
@@ -42,14 +44,12 @@ public class HttpConnection {
 			}			
 			
 			// 결과 출력
-			BufferedReader in = new BufferedReader(new InputStreamReader(responseStream));
+			in = new BufferedReader(new InputStreamReader(responseStream));
 			String inputLine;
 			StringBuffer response = new StringBuffer();
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
 			}
-			in.close();
-			con.disconnect();
 
 			return new HttpConnectionVO(responseCode, response.toString());
 		}
@@ -61,6 +61,10 @@ public class HttpConnection {
 			} else {
 				throw new Exception("연결 중 알 수 없는 오류가 발생했습니다.");
 			}
+		}
+		finally{
+			if(con != null) con.disconnect();
+			if(in != null) in.close();
 		}
 	}
 }
