@@ -7,6 +7,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import utils.Util;
+
 public class Converter {
     private Elements post;
     private String title;
@@ -28,6 +30,10 @@ public class Converter {
             CITE("cite"),
         TEXT("text"),
             PARAGRAPH("paragraph"),
+                ALIGN_DEFAULT(""),
+                ALIGN_RIGHT("right"),
+                ALIGN_LEFT("justify"),
+                ALIGN_CENTER("center"),
         CODE("code"),
         IMAGE("image"),
             CAPTION("caption"),
@@ -44,7 +50,7 @@ public class Converter {
         }
         public static ContentType findByLabel(String label){
             for(ContentType contentType : values()){
-                if(label == contentType.label) return contentType;
+                if(label.equals(contentType.label)) return contentType;
             }
             return NOTHING;
         }
@@ -121,55 +127,142 @@ public class Converter {
     }
 
     /**
-     * convert ContentType.TABLE 'element' to Tistory format
+     * Convert ContentType.TABLE 'element' to Tistory format
      * @param element should be converted to table.
      */
     void convertTable(Element element){
         // table이면 tistory 형식에 맞게
+        Element tableBody = element.child(0).child(0).child(0);
+        String table = "<table style=\"border-collapse: collapse; width: 100%;\" border=\"1\" data-ke-align=\"alignLeft\">";
+        table += "<tbody>";
+        for(Element rows : tableBody.children()){
+            table += "<tr>";
+            for(Element columns : rows.children()){
+                table += "<td>" + columns.text() + "</td>";
+            }
+            table += "</tr>";
+        }
+        table += "</tbody>";
+        table += "</table>";
+
+        this.result += table;
     }
 
     /**
-     * convert ContentType.QUOTATION 'element' to Tistory format
+     * Convert ContentType.QUOTATION 'element' to Tistory format
      * @param element should be converted to quotation.
      */
     void convertQUOTATION(Element element){
         // quotation이면 se-quote module과 se-cite module을 print
+        Element quotationContatiner = element.child(0);
+        Element quote = quotationContatiner.child(0);
+        Element cite = quotationContatiner.child(1);
+
+        String quotation = "<blockquote data-ke-style=\"style1\">";
+        quotation += quote.text();
+        quotation += "<br/>";
+        quotation += "- " + cite.text() + " -";
+        quotation += "</blockquote>";
+
+        this.result += quotation;
     }
 
+    
+    // Regular expression filtering [se-text-paragraph se-text-paragraph-{ALIGN-TYPE}] format
+    private Pattern paragraphForm = Pattern.compile("se-text-paragraph se-text-paragraph-align-([A-za-z]*)");
     /**
-     * convert ContentType.TEXT 'element' to Tistory format
+     * Convert ContentType.TEXT 'element' to Tistory format
      * @param element should be converted to text.
      */
     void convertTEXT(Element element){
         // text면 module의 child를 전부 print
+        Element textModule = element.child(0);
+        for(Element child : textModule.children()){
+            // 정렬
+            Matcher paragraphMatcher = paragraphForm.matcher(child.className());
+            String paragraph = "<p";
+            if(paragraphMatcher.find()){
+                ContentType alignType = ContentType.findByLabel(paragraphMatcher.group(1));
+                if(alignType.equals(ContentType.ALIGN_LEFT)){
+                    paragraph += " style=\"text-align: left;\"";
+                }
+                else if(alignType.equals( ContentType.ALIGN_CENTER)){
+                    paragraph += " style=\"text-align: center;\"";
+                }
+                else if(alignType.equals( ContentType.ALIGN_RIGHT)){
+                    paragraph += " style=\"text-align: right;\"";
+                }
+                // alignType == ContentType.ALIGN_DEFAULT;
+            }
+            paragraph += ">";
+
+            // link
+            Elements links = child.getElementsByTag("a");
+            Boolean isLink = (links.size() != 0);
+            if(isLink){
+                paragraph += "<a href=\"" + links.attr("href") + "\" target=\"_blank\" rel=\"noopener\">";
+            }
+
+                // text
+                if(child.text().equals("&ZeroWidthSpace;")) paragraph += "&nbsp;";
+                else paragraph += child.text();
+
+            if(isLink) paragraph += "</a>";
+            paragraph += "</p>";
+
+            this.result += paragraph;
+        }
     }
 
     /**
-     * convert ContentType.CODE 'element' to Tistory format
+     * Convert ContentType.CODE 'element' to Tistory format
      * @param element should be converted to code.
      */
     void convertCODE(Element element){
         // code면 module의 text를 print
+        String code = "<pre class=\"bash\" data-ke-language=\"bash\" data-ke-type=\"codeblock\"><code>";
+        code += element.text();
+        code += "</code></pre>";
+
+        this.result += code;
     }
 
     /**
-     * convert ContentType.IMAGE 'element' to Tistory format
+     * Convert ContentType.IMAGE 'element' to Tistory format
      * @param element should be converted to image.
      */
     void convertIMAGE(Element element){
         // image면 image module, caption module의 text를 찾아 print
+        // img
+        Elements imageModule = element.child(0).select("img");
+        String imageSrc = imageModule.attr("src");
+        if(imageModule.hasAttr("data-lazy-src")) imageSrc = imageModule.attr("data-lazy-src");
+
+        String image = "<p><img src=\"";
+        image += imageSrc;
+        image += "\" /></p>";
+
+        // TODO attach image
+        // Util.downloadImage(imageSrc);
+
+        // TODO : caption
+        // Element captionModule = element.child(1);
+        // captionModule.text(); 
+        this.result += image;
     }
 
     /**
-     * convert ContentType.HORIZONTALLINE 'element' to Tistory format
+     * Convert ContentType.HORIZONTALLINE 'element' to Tistory format
      * @param element should be converted to horizontalLine.
      */
     void convertHORIZONTALLINE(Element element){
         // horizontalLine이면 tistory 형식에 맞게 print
+        String horizontalLine = "<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />";
+        this.result += horizontalLine;
     }
 
     /**
-     * convert ContentType.LINK 'element' to Tistory format
+     * Convert ContentType.LINK 'element' to Tistory format
      * @param element should be converted to link.
      */
     void convertLINK(Element element){
