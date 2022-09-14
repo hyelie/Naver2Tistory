@@ -49,7 +49,7 @@ public class N2T {
         }
     }
 
-    // URL 가공 후 crawling 이후, tistory 양식으로 stylize해서 upload
+    // 이미지 폴더 clear, URL 가공, crawling 및 이미지 다운로드, 이미지 업로드, crawling 결과 tistory 양식으로 stylize, upload
     private void step(String URL) throws Exception{
         try{
             // clear image folder 
@@ -105,8 +105,8 @@ public class N2T {
             System.out.println("[종료] : 초기화 중 오류 발생으로 프로그램을 종료합니다.");
             return;
         }        
-        
-        System.out.println("[작업 시작] : Naver to Tistory 작업을 시작합니다.");
+        System.out.println("[시작] : Naver to Tistory 작업을 시작합니다.");
+
         // 모든 URL에 대해 작업 진행
         for(String URL : URLs){
             // 정상적으로 끝났다면 해당 작업 종료, 그렇지 않으면 오류 메시지 출력 후 최대 1회 재시도.
@@ -136,7 +136,6 @@ public class N2T {
         
         String userBlogURL = "https://" + tistoryClient.getBlogName() + ".tistory.com/manage/posts";
         Utils.openWindow(userBlogURL);
-        // TODO : 프로세싱 이후 로그 txt 형식으로 출력
         // TODO : exe 파일로 빼고 실행 잘 되는지 보기.
     }
 }

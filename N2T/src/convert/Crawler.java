@@ -23,7 +23,7 @@ public class Crawler {
             Response response = con.execute();
             if (response.statusCode() == 200) {
                 this.doc = con.get();
-            } else{ // 페이지가 존재하지 않는 경우
+            } else{ // page not found
                 throw new Exception(ResponseMessage.NOT_FOUND.getLabel());
             }
         } catch(IOException e) { // 이외 connection 중 발생하는 오류

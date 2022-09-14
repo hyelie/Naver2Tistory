@@ -145,8 +145,7 @@ public class TistoryClient {
     }
 
     /**
-     * Upload post in Tistory. If error occurs while posting,
-     * then throws Exception.
+     * Upload post in Tistory.
      * 
      * @param title - posting title
      * @param content - posting content
@@ -169,7 +168,7 @@ public class TistoryClient {
     }
 
     /**
-     * Upload image to Tistory server and get 'replacer' result.
+     * Upload image to Tistory server and get 'replacer' list.
      * 
      * @throws Exception when exception occur while uploading or parsing image.
      * @see https://tistory.github.io/document-tistory-apis/apis/v1/post/attach.html

@@ -133,7 +133,6 @@ public class Converter {
      * @param element should be converted to table.
      */
     private void convertTable(Element element){
-        // table이면 tistory 형식에 맞게
         Element tableBody = element.child(0).child(0).child(0);
         String table = "<table style=\"border-collapse: collapse; width: 100%;\" border=\"1\" data-ke-align=\"alignLeft\">";
         table += "<tbody>";
@@ -155,7 +154,6 @@ public class Converter {
      * @param element should be converted to quotation.
      */
     private void convertQUOTATION(Element element){
-        // quotation이면 se-quote module과 se-cite module을 print
         Element quotationContatiner = element.child(0);
         Element quote = quotationContatiner.child(0);
         Element cite = quotationContatiner.child(1);
@@ -177,10 +175,8 @@ public class Converter {
      * @param element should be converted to text.
      */
     private void convertTEXT(Element element){
-        // text면 module의 child를 전부 print
         Element textModule = element.child(0);
         for(Element child : textModule.children()){
-            // 정렬
             Matcher paragraphMatcher = paragraphForm.matcher(child.className());
             String paragraph = "<p";
             if(paragraphMatcher.find()){
@@ -205,7 +201,7 @@ public class Converter {
                 paragraph += "<a href=\"" + links.attr("href") + "\" target=\"_blank\" rel=\"noopener\">";
             }
 
-                // text
+                // empty text
                 if(child.text().equals("&ZeroWidthSpace;")) paragraph += "&nbsp;";
                 else paragraph += child.text();
 
@@ -221,7 +217,6 @@ public class Converter {
      * @param element should be converted to code.
      */
     private void convertCODE(Element element){
-        // code면 module의 text를 print
         String code = "<pre class=\"bash\" data-ke-language=\"bash\" data-ke-type=\"codeblock\"><code>";
         code += element.text();
         code += "</code></pre>";
@@ -234,8 +229,7 @@ public class Converter {
      * @param element should be converted to image.
      */
     private void convertIMAGE(Element element){
-        // image면 image module, caption module의 text를 찾아 print
-        // img
+        // image
         Elements imageModule = element.child(0).select("img");
         String imageSrc = imageModule.attr("src");
         if(imageModule.hasAttr("data-lazy-src")) imageSrc = imageModule.attr("data-lazy-src");
@@ -262,7 +256,6 @@ public class Converter {
      * @param element should be converted to horizontalLine.
      */
     private void convertHORIZONTALLINE(Element element){
-        // horizontalLine이면 tistory 형식에 맞게 print
         String horizontalLine = "<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />";
         this.result += horizontalLine;
     }
@@ -270,9 +263,9 @@ public class Converter {
     /**
      * Convert ContentType.LINK 'element' to Tistory format
      * @param element should be converted to link.
+     * @deprecated
      */
     private void convertLINK(Element element){
-        // oglink면 link를 print
     }
 
     /**
@@ -336,12 +329,11 @@ public class Converter {
     public void stylize(){
         this.result = "";
         // stylize with HTML DOM DFS traversal
-        // 각 container의 type에 맞게 고침
         dfsDOM(this.content);
     }
 
     /**
-     * Replace all img tag in attribute 'result' to replacer with caption.
+     * Replace all img tag in attribute 'result' to 'replacer' with caption.
      * @param replacers - list of replacers of images.
      */
     public void attachIMAGE(List<String> replacers){
@@ -355,8 +347,8 @@ public class Converter {
             String replacer = replacers.get(idx);
             String caption = captions.get(idx);
 
-            Integer captionIndex = Utils.findNthString(replacer, delimeter, 4); // caption index
-            replacer = Utils.insert(replacer, captionIndex+1, caption); // caption 위치에 insert
+            Integer captionIndex = Utils.findNthString(replacer, delimeter, 4);
+            replacer = Utils.insert(replacer, captionIndex+1, caption);
 
             Element parent = image.parent();
             image.remove();

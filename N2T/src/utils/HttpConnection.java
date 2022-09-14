@@ -10,13 +10,12 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class HttpConnection {
-
 	/**
 	 * @return response of HttpURLConnectoin 'con' to HttpConnectionVO.
 	 * @throws Exception to caller while running this function.
 	 */
 	private static HttpConnectionVO getResponse(HttpURLConnection con) throws Exception{
-		// response code에 따라 input stream 지정.
+		// response code에 따라 input stream 지정
 		Integer responseCode = con.getResponseCode();
 		InputStream responseStream;
 		if(responseCode < HttpURLConnection.HTTP_BAD_REQUEST){
@@ -54,7 +53,6 @@ public class HttpConnection {
 			URL url = new URL(targetURL);
 			con = (HttpURLConnection) url.openConnection();
 
-			// 연결 type 지정
 			con.setRequestMethod(type);
 			if (type != "GET") {
 				con.setDoOutput(true);
@@ -95,14 +93,12 @@ public class HttpConnection {
 			URL url = new URL(targetURL + "?" + parameter);
 			con = (HttpURLConnection) url.openConnection();
 
-			// 연결 type 지정
 			con.setRequestMethod(type);
 
-			// 입력 지정
 			con.setDoInput(true);
 			con.setDoOutput(true);
 
-			// 파일 입력
+			// input file
 			String BOUNDARY = "ibubyftcy000999------nitn67";
 			con.setRequestProperty("Connection", "Keep-Alive");
 			con.setRequestProperty("Content-Type", "multipart/form-data;boundary="+BOUNDARY);
