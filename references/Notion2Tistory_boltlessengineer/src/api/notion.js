@@ -1,3 +1,0 @@
-// js file for notion api.
-// hope I can use this...
-// someday... 😥

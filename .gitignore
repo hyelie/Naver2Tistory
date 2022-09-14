@@ -1,6 +1,5 @@
 .vscode/*
 .git/*
-references/*
 *.class
 *.jpg
 API_KEY
