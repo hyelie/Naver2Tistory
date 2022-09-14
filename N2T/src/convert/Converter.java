@@ -1,13 +1,15 @@
 package convert;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import utils.Util;
+import utils.Utils;
 
 public class Converter {
     private Elements post;
@@ -130,7 +132,7 @@ public class Converter {
      * Convert ContentType.TABLE 'element' to Tistory format
      * @param element should be converted to table.
      */
-    void convertTable(Element element){
+    private void convertTable(Element element){
         // table이면 tistory 형식에 맞게
         Element tableBody = element.child(0).child(0).child(0);
         String table = "<table style=\"border-collapse: collapse; width: 100%;\" border=\"1\" data-ke-align=\"alignLeft\">";
@@ -152,7 +154,7 @@ public class Converter {
      * Convert ContentType.QUOTATION 'element' to Tistory format
      * @param element should be converted to quotation.
      */
-    void convertQUOTATION(Element element){
+    private void convertQUOTATION(Element element){
         // quotation이면 se-quote module과 se-cite module을 print
         Element quotationContatiner = element.child(0);
         Element quote = quotationContatiner.child(0);
@@ -174,7 +176,7 @@ public class Converter {
      * Convert ContentType.TEXT 'element' to Tistory format
      * @param element should be converted to text.
      */
-    void convertTEXT(Element element){
+    private void convertTEXT(Element element){
         // text면 module의 child를 전부 print
         Element textModule = element.child(0);
         for(Element child : textModule.children()){
@@ -218,7 +220,7 @@ public class Converter {
      * Convert ContentType.CODE 'element' to Tistory format
      * @param element should be converted to code.
      */
-    void convertCODE(Element element){
+    private void convertCODE(Element element){
         // code면 module의 text를 print
         String code = "<pre class=\"bash\" data-ke-language=\"bash\" data-ke-type=\"codeblock\"><code>";
         code += element.text();
@@ -231,23 +233,27 @@ public class Converter {
      * Convert ContentType.IMAGE 'element' to Tistory format
      * @param element should be converted to image.
      */
-    void convertIMAGE(Element element){
+    private void convertIMAGE(Element element){
         // image면 image module, caption module의 text를 찾아 print
         // img
         Elements imageModule = element.child(0).select("img");
         String imageSrc = imageModule.attr("src");
         if(imageModule.hasAttr("data-lazy-src")) imageSrc = imageModule.attr("data-lazy-src");
 
-        String image = "<p><img src=\"";
-        image += imageSrc;
-        image += "\" /></p>";
+        try {
+            Utils.downloadImage(imageSrc);
+        } catch (Exception e) {
+            System.out.println("[이미지 전환 중 오류] : " + e.getMessage());
+        }
 
-        // TODO attach image
-        // Util.downloadImage(imageSrc);
+        // caption
+        String caption = "";
+        if(element.childrenSize() >= 2){
+            Element captionModule = element.child(1);
+            caption = captionModule.text();
+        }
+        String image = "<p><img src=\"\" caption=\"" + caption + "\" /></p>";
 
-        // TODO : caption
-        // Element captionModule = element.child(1);
-        // captionModule.text(); 
         this.result += image;
     }
 
@@ -255,7 +261,7 @@ public class Converter {
      * Convert ContentType.HORIZONTALLINE 'element' to Tistory format
      * @param element should be converted to horizontalLine.
      */
-    void convertHORIZONTALLINE(Element element){
+    private void convertHORIZONTALLINE(Element element){
         // horizontalLine이면 tistory 형식에 맞게 print
         String horizontalLine = "<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />";
         this.result += horizontalLine;
@@ -265,7 +271,7 @@ public class Converter {
      * Convert ContentType.LINK 'element' to Tistory format
      * @param element should be converted to link.
      */
-    void convertLINK(Element element){
+    private void convertLINK(Element element){
         // oglink면 link를 print
     }
 
@@ -332,5 +338,32 @@ public class Converter {
         // stylize with HTML DOM DFS traversal
         // 각 container의 type에 맞게 고침
         dfsDOM(this.content);
+    }
+
+    /**
+     * Replace all img tag in attribute 'result' to replacer with caption.
+     * @param replacers - list of replacers of images.
+     */
+    public void attachIMAGE(List<String> replacers){
+        Document doc = Jsoup.parse(this.result);
+        Elements images = doc.select("img");
+        List<String> captions = images.eachAttr("caption");
+
+        int idx = 0;
+        String delimeter = "|";
+        for(Element image : images){
+            String replacer = replacers.get(idx);
+            String caption = captions.get(idx);
+
+            Integer captionIndex = Utils.findNthString(replacer, delimeter, 4); // caption index
+            replacer = Utils.insert(replacer, captionIndex+1, caption); // caption 위치에 insert
+
+            Element parent = image.parent();
+            image.remove();
+            parent.appendText(replacer);
+
+            idx++;
+        }    
+        this.result = doc.toString();
     }
 }

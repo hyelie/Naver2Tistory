@@ -1,16 +1,15 @@
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import auth.TistoryClient;
 import convert.Converter;
 import convert.Crawler;
 import convert.URLProcessor;
-import utils.Util;
+import utils.Utils;
 
 public class N2T {
     private List<String> URLs;
@@ -41,8 +40,8 @@ public class N2T {
         try{
             // 입력 파일에 있는 URL 입력받아 저장
             System.out.println("[파일 읽는 중] : list.txt 파일을 읽는 중입니다.");
-            Path path = Paths.get(Util.getCurrentDirectory() + "/N2T/src/list.txt");
-            URLs = Util.readList(path);
+            Path path = Paths.get(Utils.getURLListPath());
+            URLs = Utils.readList(path);
             System.out.println("[파일 읽기 완료] : list.txt 파일을 읽었습니다.");
         }
         catch(Exception e){
@@ -51,8 +50,11 @@ public class N2T {
     }
 
     // URL 가공 후 crawling 이후, tistory 양식으로 stylize해서 upload
-    private void step(String URL){
+    private void step(String URL) throws Exception{
         try{
+            // clear image folder 
+            Utils.clearImageFolder();
+
             // process URL
             String processedURL = urlProcessor.getOriginURL(URL);
 
@@ -70,13 +72,18 @@ public class N2T {
 			// extract content from post
 			converter.extractContent();
             
-			// stylize content and get stylized result
+			// stylize content
 			converter.stylize();
-			String result = converter.getResult();
 
-            // image 파일에 있는 src 변경
-            Jsoup.parse(result);
-            //tistoryClient.attach();
+            // upload and attach image
+            List<String> replacers = new ArrayList<String>();
+            for(int i = 0; i < Utils.getNumImages(); i++){
+                replacers.add(tistoryClient.attach(i));
+            }
+            converter.attachIMAGE(replacers);
+            
+            // get result
+			String result = converter.getResult();
 
             // upload stylized result to tistory
             tistoryClient.post(title, result);
@@ -84,11 +91,12 @@ public class N2T {
         }
         catch(Exception e){
             System.out.println(e.getMessage());
+            throw new Exception(e.getMessage());
         }
     }
 
     // 프로그램 실행
-    public void process(){
+   public void process(){
         // 초기화
         try{
             initConfig();
@@ -96,7 +104,7 @@ public class N2T {
         } catch(Exception e){
             System.out.println("[종료] : 초기화 중 오류 발생으로 프로그램을 종료합니다.");
             return;
-        }
+        }        
         
         System.out.println("[작업 시작] : Naver to Tistory 작업을 시작합니다.");
         // 모든 URL에 대해 작업 진행
@@ -124,10 +132,10 @@ public class N2T {
             }
         }
 
-        System.out.println("[성공] : Naver to Tistory 작업이 성공적으로 끝났습니다.");
+        System.out.println("[종료] : Naver to Tistory 프로그램을 종료합니다.");
         
         String userBlogURL = "https://" + tistoryClient.getBlogName() + ".tistory.com/manage/posts";
-        Util.openWindow(userBlogURL);
+        Utils.openWindow(userBlogURL);
         // TODO : 프로세싱 이후 로그 txt 형식으로 출력
         // TODO : exe 파일로 빼고 실행 잘 되는지 보기.
     }

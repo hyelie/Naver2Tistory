@@ -2,7 +2,8 @@
 .git/*
 references/*
 *.class
+*.jpg
 API_KEY
 N2T/bin/*
 N2T/src/JRunner.java
-N2T/src/auth/config_test.json
+N2T/config_test.json

@@ -2,7 +2,7 @@ package auth;
 
 import utils.HttpConnection;
 import utils.HttpConnectionVO;
-import utils.Util;
+import utils.Utils;
 
 import java.net.URISyntaxException;
 
@@ -30,11 +30,12 @@ public class TistoryClient {
     public TistoryClient() throws Exception{
         try{
             JSONParser parser = new JSONParser();
-            Reader reader = new FileReader(Util.getCurrentDirectory() + "/N2T/src/auth/config.json");
+            Reader reader = new FileReader(Utils.getConfigPath());
             JSONObject config = (JSONObject) parser.parse(reader);
             this.appId = (String) config.getOrDefault("APP_ID", null);
             this.secretKey = (String) config.getOrDefault("SECRET_KEY", null);
             this.blogName = (String) config.getOrDefault("BLOG_NAME", null);
+            this.accessToken = (String) config.getOrDefault("ACCESS_TOKEN", null);
             if(this.appId == null || this.secretKey == null || this.blogName == null) throw new NullPointerException();
         }
         catch(Exception e){
@@ -53,14 +54,15 @@ public class TistoryClient {
     /**
      * Issue new 'code' from Tistory API and store in the attribute.
      * @throws Exception when error occurs while issuing code from Tistory API.
+     * * @see https://tistory.github.io/document-tistory-apis/auth/authorization_code.html
      */
     private void issueCode() throws Exception{
         String issueCodeURL = String.format("https://www.tistory.com/oauth/authorize?client_id=%s&redirect_uri=http://%s.tistory.com&response_type=code", this.appId, this.blogName);
         try{
             System.out.println("            다음 링크를 인터넷 창에 입력해 주세요.");
             System.out.println("            " + issueCodeURL);
-            Util.openWindow(issueCodeURL);
-            this.code = Util.getInput("            발급받은 Code를 입력해 주세요.");
+            Utils.openWindow(issueCodeURL);
+            this.code = Utils.getInput("            발급받은 Code를 입력해 주세요.");
         }
         catch (Exception e){
             this.code = null;
@@ -77,6 +79,7 @@ public class TistoryClient {
      * Determine whether 'accessToken' attribute is valid or not.
      * @return true if accessToken is valid, false otherwise.
      * @throws Exception when error occurs while connecting to URL.
+     * @see https://tistory.github.io/document-tistory-apis/apis/v1/blog/list.html
      */
     private Boolean isAccessTokenValid() throws Exception {
         String checkAccessTokenURL = "https://www.tistory.com/apis/blog/info?"
@@ -84,7 +87,7 @@ public class TistoryClient {
                                    + "output=xml";
         HttpConnectionVO result;
         try{
-            result = HttpConnection.connect(checkAccessTokenURL, "GET", null);
+            result = HttpConnection.request(checkAccessTokenURL, "GET", null);
             if(result.getCode() != 200) return false;
             else return true;
         }
@@ -96,6 +99,7 @@ public class TistoryClient {
     /**
      * Issue new 'accessToken' and store in the attribute.
      * @throws Exception when error occurs while connecting to URL.
+     * @see https://tistory.github.io/document-tistory-apis/auth/authorization_code.html
      */
     private void issueAccessToken() throws Exception{
         String isCodeValidURL = "https://www.tistory.com/oauth/access_token?"
@@ -107,7 +111,7 @@ public class TistoryClient {
         
         HttpConnectionVO result;
         try{
-            result = HttpConnection.connect(isCodeValidURL, "GET", null);
+            result = HttpConnection.request(isCodeValidURL, "GET", null);
             if(result.getCode() == 200){
                 String[] responseArray = result.getBody().toString().split("=");
                 this.accessToken = responseArray[1];
@@ -133,6 +137,7 @@ public class TistoryClient {
                 issueCode();
                 issueAccessToken();
             }
+            System.out.println("access token : " + this.accessToken);
         }
         catch(Exception e){
             throw new Exception(e.getMessage());
@@ -145,6 +150,7 @@ public class TistoryClient {
      * 
      * @param title - posting title
      * @param content - posting content
+     * @see https://tistory.github.io/document-tistory-apis/apis/v1/post/write.html
      * @throws Exception when exception occur while checking or issuing token.
      */
     public void post(String title, String content) throws Exception {
@@ -153,11 +159,38 @@ public class TistoryClient {
             String param = "access_token=" + this.accessToken + "&"
                          + "blogName=" + this.blogName + "&"
                          + "title=" + title + "&"
-                         + "content=" + content;
-            HttpConnection.connect(postURL, "POST", param);
+                         + "content=" + content + "&"
+                         + "visibility=3";
+            HttpConnection.request(postURL, "POST", param);
         }
         catch(Exception e){
             throw new Exception(e.getMessage());
+        }
+    }
+
+    /**
+     * Upload image to Tistory server and get 'replacer' result.
+     * 
+     * @throws Exception when exception occur while uploading or parsing image.
+     * @see https://tistory.github.io/document-tistory-apis/apis/v1/post/attach.html
+     */
+    public String attach(Integer imageNum) throws Exception{
+        try{
+            String postURL = "https://www.tistory.com/apis/post/attach";
+            String param = "access_token=" + this.accessToken + "&"
+                         + "blogName=" + this.blogName + "&"
+                         + "output=json";
+            HttpConnectionVO result = HttpConnection.request(postURL, "POST", param, Utils.getImageDirectory() + String.valueOf(imageNum) + ".jpg");
+
+            if(result.getCode() == 200){
+                JSONParser jsonParser = new JSONParser();
+                JSONObject responseBody = (JSONObject) jsonParser.parse(result.getBody());
+                return ((JSONObject) responseBody.get("tistory")).get("replacer").toString();
+            }
+            return "";
+        }
+        catch(Exception e){
+            throw new Exception("[티스토리 이미지 업로드 중 오류] : " + e.getMessage());
         }
     }
 }

@@ -18,7 +18,7 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
 
 ## 실행 전
-src/auth/config.json에 있는 정보를 채워 넣어야 합니다.
+N2T/config.json에 있는 정보를 채워 넣어야 합니다.
 APP_ID : 티스토리 Open API에서 설정하는 App ID
 SECRET_KEY : 티스토리 Open API에서 설정하는 Secret Key
 BLOG_NAME : 포스팅 할 블로그 이름
@@ -27,10 +27,8 @@ BLOG_NAME : 포스팅 할 블로그 이름
 네이버 블로그 스마트 에디터 버전, 또는 티스토리 에디터 버전 변경으로 인해 HTML이 수정되었을 경우 Converter.java의 dfsDOM을 수정하면 됨.
 
 ## 미완성 TODO
-1) 이미지 올리는 법 찾기
-2) readme 작성, 프로그램 소개, 오픈소스화 배포.
+1) readme 작성, 프로그램 소개, 오픈소스화 배포.
 
 ## 다음 업데이트
 1) 글 폰트 따서 대/중/소제목으로 선택. paragraph에 size가 있으니까 골라서 24 대제목 19 중제목 16 소제목으로. 이건 json으로 빼서 사용자가 선택 가능하게. - 1.0.1
 2) category 선택 기능도 - 1.0.2
-3) 현재는 naver blog image src를 그대로 가져오는데, tistory cdn에 upload 이후 caption도 처리 가능하게 하기. - 1.0.3
