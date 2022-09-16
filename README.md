@@ -24,7 +24,7 @@ I made this program to automate moving from Naver Blog to Tistory Blog.
 ## Getting Started
 This program can be run as follows:
 
-Download and unzip the zip file from [link](). There are 3 files in the zip file: N2T.jar, config.json, and list.txt
+Download and unzip the zip file from [link](https://github.com/hyelie/Naver2Tistory/releases/tag/v0.0.1). There are 3 files in the zip file: N2T.jar, config.json, and list.txt
 
 After that, you need to put the value in the configuration file.
 
@@ -60,6 +60,7 @@ https://blog.naver.com/jhi990823/222848946417
 ```
 
 ### Execution
+Move to unzip directory and run following command.
 ```
 java -jar N2T.jar
 ```
