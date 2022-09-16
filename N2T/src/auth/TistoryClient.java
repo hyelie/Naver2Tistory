@@ -137,7 +137,6 @@ public class TistoryClient {
                 issueCode();
                 issueAccessToken();
             }
-            System.out.println("access token : " + this.accessToken);
         }
         catch(Exception e){
             throw new Exception(e.getMessage());

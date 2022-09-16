@@ -36,7 +36,7 @@ public class N2T {
     }
 
     // 프로그램 실행 전에 list.txt에 있는 url들을 읽어 옴.
-    private void initURLs(){
+    private void initURLs() throws Exception{
         try{
             // 입력 파일에 있는 URL 입력받아 저장
             System.out.println("[파일 읽는 중] : list.txt 파일을 읽는 중입니다.");
@@ -45,7 +45,7 @@ public class N2T {
             System.out.println("[파일 읽기 완료] : list.txt 파일을 읽었습니다.");
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+            throw new Exception("[초기화 오류] : list.txt 파일이 없습니다.");
         }
     }
 

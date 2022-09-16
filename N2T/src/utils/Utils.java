@@ -61,21 +61,21 @@ public class Utils {
      * Get absolute path of image directory
      */
     public static String getImageDirectory(){
-        return Utils.getCurrentDirectory() + "/N2T/image/";
+        return Utils.getCurrentDirectory() + "/image/";
     }
 
     /**
      * Get absolute path of config file
      */
     public static String getConfigPath(){
-        return Utils.getCurrentDirectory() + "/N2T/config.json";
+        return Utils.getCurrentDirectory() + "/config.json";
     }
 
     /**
      * Get absolute path of URL list file
      */
     public static String getURLListPath(){
-        return Utils.getCurrentDirectory() + "/N2T/list.txt";
+        return Utils.getCurrentDirectory() + "/list.txt";
     }
 
     /**

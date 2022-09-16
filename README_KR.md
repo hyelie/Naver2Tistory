@@ -1,35 +1,65 @@
 # Naver2Tistory - 블로그 이사 프로그램
 ## 개요
-네이버 블로그 링크를 올리면, 본문에 있는 내용을 티스토리 에디터에 맞게 형식을 고쳐 포스팅 해 주는 프로그램
+네이버 블로그 링크를 올리면, 해당 포스팅의 내용을 티스토리 에디터에 맞게 형식을 고쳐 포스팅 해 주는 프로그램
 
 이미지(실행 사진)
 
-블로그를 이사할 때, 작성했던 포스팅을 옮기고 싶어 복사 붙여넣기를 하자니 형식이 깨져 보기 좋지 않습니다.
-
-이 프로그램은 해당 문제를 해결하기 위해 만들게 되었습니다.   
+블로그를 이사할 때 작성했던 포스팅을 옮기고 싶어 복사 붙여넣기를 하자니 형식이 깨져 하나하나 다 고쳐야 하는 문제를 해결하기 위해 이 프로그램을 만들었습니다.
 
 ## 기능
 - 네이버 블로그 HTML 크롤링 및 이미지 저장
 - 티스토리 블로그에 공개 상태로 업로드
-- 현재 지원하는 형식 : 글(+정렬), 표, 사진(+캡션), 인용구, 구분선, 소스코드, 링크
+- 현재 지원하는 형식
+    - 글(+정렬)
+    - 표
+    - 사진(+캡션)
+    - 인용구
+    - 구분선
+    - 소스코드
+    - 링크
 
 ## 시작하기
 이 프로그램은 다음과 같이 실행할 수 있습니다.
 
-다음 [링크]()에서 zip파일을 다운로드하고 압축 해제한다.
+[링크]()에서 zip파일을 다운로드하고 압축 해제합니다. zip파일 내에는 N2T.jar, config.json, list.txt 3개의 파일이 있습니다.
 
-이후 환경설정 파일에 값을 넣어야 한다. config.json
+이후 환경설정 파일에 값을 넣어야 합니다.
 
-### 2. 환경설정 값 채워넣기
-config.json에 값 넣기
-Tistory key는 이렇게 받아온다. [링크](https://hyelie.tistory.com/entry/Tistory-Open-API-%EC%95%B1-%EB%93%B1%EB%A1%9D)
+### config.json에 Tistory Key 넣기
+config.json은 해당 프로그램이 사용하는 환경설정 값입니다.
+- APP_ID : 티스토리 Open API에서 설정하는 App ID
+- SECRET_KEY : 티스토리 Open API에서 설정하는 Secret Key
+- BLOG_NAME : 포스팅 할 블로그 이름 (xxx.tistory.com에서 xxx 부분)
 
-config.json의 값은 이런이런 값이고, 위에서 받은 것으로 값을 채워넣는다.
+App ID와 Secret Key는 [다음](https://hyelie.tistory.com/entry/Tistory-Open-API-%EC%95%B1-%EB%93%B1%EB%A1%9D)과 같이 받아옵니다.
 
-### 3. list.txt에 값 넣기
-list.txt에 값을 채워넣는다.
+예시) config.json
+```
+{
+    "APP_ID" : "de3...",
+    "SECRET_KEY" : "de3...",
+    "USER_ID" : "hyelie"
+}
+```
 
-### 4. 실행한다.
+### list.txt에 링크 넣기
+list.txt는 티스토리로 옮길 네이버 블로그 포스팅 링크입니다.
+
+티스토리로 옮기고 싶은 네이버 블로그 포스팅 링크들을 줄바꿈으로 구분해서 list.txt에 작성합니다.
+
+유의점 - 비공개 게시글은 읽을 수 없습니다. 게시글을 공개 상태로 설정해 주세요.
+
+예시) list.tst
+```
+https://blog.naver.com/jhi990823/222848946415
+https://blog.naver.com/jhi990823/222848946416
+https://blog.naver.com/jhi990823/222848946417
+```
+
+### 실행
+```
+java -jar N2T.jar
+```
 
 ## 설치
 ### 요구 환경
@@ -37,37 +67,53 @@ JDK 17
 
 ### 환경 구성 및 실행
 
-환경 설정 방법
-
 Linux
 
-먼저 JDK 17을 설치한다.
+먼저 JDK 17을 설치합니다.
 ```
 sudo apt install openjdk-17-jdk
 ```
 
-[JDK 설치, Java 개발환경 설정](https://hyelie.tistory.com/entry/GCP%EC%97%90-Java-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85?category=947331)와 같이 Visual Studio Code에서 자바 개발환경을 설정한다.
+다음 링크와 같이 Visual Studio Code에서 자바 개발환경을 설정합니다. [Linux에 JDK 설치, Java 개발환경 설정](https://hyelie.tistory.com/entry/GCP%EC%97%90-Java-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85?category=947331)
 
-해당 저장소를 클론한 후, N2T폴더에서 빌드하면 된다.
+해당 저장소를 클론한 후, N2T폴더에서 빌드합니다.
 ```
 git clone https://github.com/hyelie/Naver2Tistory.git
 cd Naver2Tistory/N2T
+build
 ```
-
-윈도우
-
-먼저 JDK 17을 설치한다. [설치 링크](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-
-이클립스 또는 인텔리제이를 사용한다면 빈 프로젝트 생성 후 N2T/lib에 있는 파일들은 라이브러리에 넣고, N2T/src에 있는 자바 파일들은 소스코드에 넣고 실행하면 된다.
 
 ## 업데이트 내역
 
 * 1.0.0 (현재)
-    * 첫 배포
+    - 네이버 블로그 HTML 크롤링 및 이미지 저장
+    - 티스토리 블로그에 공개 상태로 업로드
+    - 지원하는 형식
+        - 글(+정렬)
+        - 표
+        - 사진(+캡션)
+        - 인용구
+        - 구분선
+        - 소스코드
+        - 링크
 * 1.0.1
-    * 네이버 블로그의 글 폰트 사이즈에 따라 티스토리의 대제목, 중제목, 소제목으로 분류 기능 추가 예정.
+    * 네이버 블로그의 글 폰트 사이즈에 따라 티스토리의 대제목, 중제목, 소제목으로 분류 기능 추가 예정
 * 1.0.2
-    * list.txt에 카테고리를 입력해 카테고리 자동 선택 기능 추가 예정.
+    * list.txt에 카테고리를 입력해 카테고리 자동 선택 기능 추가 예정
 
 ## 저자
-  - [hyelie](https://github.com/hyelie) - **정혜일** - <hyelie@postech.ac.kr>
+[hyelie](https://github.com/hyelie) - **정혜일** - <hyelie@postech.ac.kr>
+
+해당 프로젝트에 참여한 [기여자 목록](./CONTRIBUTORS)
+
+## 기여 방법
+
+1. [https://github.com/hyelie/Naver2Tistory/fork](https://github.com/hyelie/Naver2Tistory/fork)에서 해당 레포지토리를 포크합니다
+2. `git checkout -b feature/featureName` 명령어로 새 브랜치를 만드세요.
+3. `git commit -am 'Add some feature'` 명령어로 커밋하세요.
+4. `git push origin feature/featureName` 명령어로 브랜치에 푸시하세요. 
+5. 풀 리퀘스트를 보내주세요.
+
+## License
+
+Naver2Tistory는 MIT 라이센스를 제공합니다. [라이센스 파일](./LICENSE)에서 자세한 정보를 확인하세요.
