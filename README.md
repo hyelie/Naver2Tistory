@@ -1,6 +1,6 @@
 # Naver2Tistory - Blog Moving program
 
-Read this with Korean: [KR](./readme/README_KR.md)
+Read this with [Korean](./readme/README_KR.md)
 
 ## Overview
 This program reformats post contents to fit the Tistory Editor and upload to the Tistory Blog when you give Naver Blog posting link.
@@ -31,7 +31,7 @@ Please install after checking the JDK installation method for each operating sys
 
 This program can be run as follows:
 
-Download and unzip the zip file from [link](https://github.com/hyelie/Naver2Tistory/releases/tag/v1.0.0). There are 3 files in the zip file: N2T.jar, config.json, and list.txt
+Download and unzip the zip file from [link](https://github.com/hyelie/Naver2Tistory/releases/tag/v1.0.0). There are 3 files in the zip file: N2T.jar(or N2T.exe), config.json, and list.txt
 
 After that, you need to put the value in the configuration file.
 
@@ -66,14 +66,16 @@ https://blog.naver.com/jhi990823/222848946416
 https://blog.naver.com/jhi990823/222848946417
 ```
 
-### Enter Tistory Code
-For the CODE appears during execution, enter xxx part in the url of 'code=xxx' that appears in the window where you pressed 'allow' button.
-
 ### Execution
-Move to unzip directory and run following command.
+If you downloaded .jar file, then move to unzip directory and run following command.
 ```
 java -jar N2T.jar
 ```
+
+If you downloaded .exe file, execute N2T.exe file in the unzipped folder.
+
+### Enter Tistory Code
+For the CODE appears during execution, enter xxx part in the url of 'code=xxx' that appears in the window where you pressed 'allow' button.
 
 ## Installation
 ### Requirements
