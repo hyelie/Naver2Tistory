@@ -1,11 +1,11 @@
-# Naver2Tistory
+# Naver2Tistory - Blog Moving program
 
-Read this with Korean: [KR](./README_KR.md)
+Read this with Korean: [KR](./readme/README_KR.md)
 
 ## Overview
 This program reformats post contents to fit the Tistory Editor and upload to the Tistory Blog when you give Naver Blog posting link.
 
-Image (photo)
+![Exceution gif](./readme/%EC%8B%A4%ED%96%89%20%ED%99%94%EB%A9%B4.gif)
 
 I made this program to automate moving from Naver Blog to Tistory Blog.
 
@@ -22,6 +22,13 @@ I made this program to automate moving from Naver Blog to Tistory Blog.
     - link
 
 ## Getting Started
+### prerequisite
+JDK 17 is need to run this program.
+
+Please install after checking the JDK installation method for each operating system from the [link](https://github.com/hyelie/Naver2Tistory#environment-setup).
+
+### How to run
+
 This program can be run as follows:
 
 Download and unzip the zip file from [link](https://github.com/hyelie/Naver2Tistory/releases/tag/v0.0.1). There are 3 files in the zip file: N2T.jar, config.json, and list.txt
@@ -77,8 +84,14 @@ First, install JDK 17 using following command.
 ```
 sudo apt install openjdk-17-jdk
 ```
-Set up the Java development environment in Visual Studio Code as shown in the following link.
+
 Set up the Java development environment in Visual Studio Code as shown in the following link. [Install JDK on Linux, Setup the Java development environment](https://hyelie.tistory.com/entry/GCP%EC%97%90-Java-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85?category=947331)
+
+Windows
+
+Install Java SE 17 on following [link](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
+
+### Execution
 
 After cloning the repository, build in the N2T folder.
 ```
@@ -119,7 +132,5 @@ See the list of [contributors](./CONTRIBUTORS) who participated in this project.
 5. Send pull request.
 
 ## License
-
-MIT License
 
 Naver2Tistory is available under the MIT license. See the [License file](./LICENSE) for more info.
