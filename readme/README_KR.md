@@ -30,7 +30,7 @@
 ### 실행 방법
 이 프로그램은 다음과 같이 실행할 수 있습니다.
 
-[링크](https://github.com/hyelie/Naver2Tistory/releases/tag/v0.0.1)에서 zip파일을 다운로드하고 압축 해제합니다. zip파일 내에는 N2T.jar, config.json, list.txt 3개의 파일이 있습니다.
+[링크](https://github.com/hyelie/Naver2Tistory/releases/tag/v1.0.0)에서 zip파일을 다운로드하고 압축 해제합니다. zip파일 내에는 N2T.jar, config.json, list.txt 3개의 파일이 있습니다.
 
 이후 환경설정 파일에 값을 넣어야 합니다.
 
@@ -64,6 +64,9 @@ https://blog.naver.com/jhi990823/222848946415
 https://blog.naver.com/jhi990823/222848946416
 https://blog.naver.com/jhi990823/222848946417
 ```
+
+### Tistory Code 입력
+실행 중 나오는 CODE는 '허가하기' 버튼을 누른 창에서 나타나는 url의 'code=xxx'부분에서 xxx를 입력하면 됩니다.
 
 ### 실행
 압축 해제한 폴더에서 다음 명령어를 실행하세요.
