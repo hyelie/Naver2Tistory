@@ -25,7 +25,7 @@
 ### 전제 조건
 이 프로그램을 실행하기 전 JDK 17이 설치되어 있어야 합니다.
 
-[여기](https://github.com/hyelie/Naver2Tistory/blob/main/README_KR.md#%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1)에서 운영체제별 JDK 설치 방법을 확인 후, 설치해 주세요.
+[여기](https://github.com/hyelie/Naver2Tistory/blob/main/readme/README_KR.md#%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1)에서 운영체제별 JDK 설치 방법을 확인 후, 설치해 주세요.
 
 ### 실행 방법
 이 프로그램은 다음과 같이 실행할 수 있습니다.
