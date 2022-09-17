@@ -66,7 +66,7 @@ https://blog.naver.com/jhi990823/222848946416
 https://blog.naver.com/jhi990823/222848946417
 ```
 
-### Enter Story Code
+### Enter Tistory Code
 For the CODE appears during execution, enter xxx part in the url of 'code=xxx' that appears in the window where you pressed 'allow' button.
 
 ### Execution
