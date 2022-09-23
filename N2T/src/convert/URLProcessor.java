@@ -7,7 +7,7 @@ public class URLProcessor {
     // Regular expression filtering [blog.naver.com/{NAVER_ID}/{POST_NUMBER}] format
     private Pattern rawPattern = Pattern.compile("http[s]?:\\/\\/blog.naver.com\\/([A-za-z0-9]*)\\/([0-9]*)");
     // Regular expression filtering [blog.naver.com/PostView.naver?blogId={NAVER_ID}&logNo={POST_NUMBER}] format
-    private Pattern processedPattern = Pattern.compile("http[s]?:\\/\\/blog.naver.com\\/PostView.naver\\?blogId=([A-za-z0-9]*)&logNo=([0-9]*)");
+    private Pattern processedPattern = Pattern.compile("http[s]?:\\/\\/blog.naver.com\\/PostView.naver\\?blogId=([A-za-z0-9]*)&logNo=([0-9]*)(.)*");
     private enum URLType {
         INVALID,
         RAW,                    // Need to be processed
