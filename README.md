@@ -107,7 +107,7 @@ build
 
 ## Update history
 
-* 1.0.0 (Current)
+* 1.0.0
     - Naver Blog HTML crawling and image saving
     - Upload to the Tistory Blog in a public state
     - Currently supported formats are:
@@ -118,9 +118,13 @@ build
         - horizontal divider
         - source code
         - link
-* 1.0.1
+* 1.0.1 (Current)
+    - (Fixed) URL recognition error resolved
+    - (Fixed) Fixed an issue where posts would not be uploaded if there were <, >, ", & symbols in the post.
+    - (Changed) uploaded to the Tistory blog in a "public" state
+* 1.1.0
     - According to the font size on the Naver Blog, classifictaion function which classify headline, middle title, small title on Tistory Blog whill be added.
-* 1.0.2
+* 1.2.0
     - Category selection function will be added.
 
 ## Authors
