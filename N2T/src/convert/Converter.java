@@ -367,7 +367,7 @@ public class Converter {
         this.result = this.result.replace("&lt;", "<");
         this.result = this.result.replace("&quot;", "\"");
         this.result = this.result.replace("&nbsp;", " ");
-        this.result = this.result.replace("&amp;", " ");
-        this.result = this.result.replace("&", "·");
+        this.result = this.result.replace("&amp;", "%26");
+        this.result = this.result.replace("&", "%26");
     }
 }
