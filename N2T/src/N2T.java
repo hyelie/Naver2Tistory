@@ -69,7 +69,7 @@ public class N2T {
 			String title = converter.getTitle();
             System.out.println("[작업 중] : " + title);
             
-			// extract content from post
+			// extract content from post           
 			converter.extractContent();
             
 			// stylize content
@@ -81,6 +81,8 @@ public class N2T {
                 replacers.add(tistoryClient.attach(i));
             }
             converter.attachIMAGE(replacers);
+
+            converter.removeSpecials();
             
             // get result
 			String result = converter.getResult();

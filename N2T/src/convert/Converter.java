@@ -1,5 +1,6 @@
 package convert;
 
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -361,13 +362,23 @@ public class Converter {
         for(Element child : doc.body().children()){
             this.result += child.toString();
         }
+    }
 
+    /**
+     * Replace all special chars in attribute 'result' to URL encoding.
+     */
+    public void removeSpecials() throws Exception{
         // remove HTML specials
         this.result = this.result.replace("&gt;", ">");
         this.result = this.result.replace("&lt;", "<");
         this.result = this.result.replace("&quot;", "\"");
         this.result = this.result.replace("&nbsp;", " ");
-        this.result = this.result.replace("&amp;", "%26");
-        this.result = this.result.replace("&", "%26");
+
+        try{
+            this.result = URLEncoder.encode(this.result, "UTF-8");
+        }
+        catch (Exception e){
+            throw new Exception("Encoding 중 문제가 발생했습니다.");
+        }
     }
 }
