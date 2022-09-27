@@ -200,7 +200,7 @@ public class Converter {
             if(isLink){
                 paragraph += "<a href=\"" + links.attr("href") + "\" target=\"_blank\" rel=\"noopener\">";
             }
-
+            
                 // empty text
                 if(child.text().equals("&ZeroWidthSpace;")) paragraph += "&nbsp;";
                 else paragraph += child.text();
@@ -356,6 +356,18 @@ public class Converter {
 
             idx++;
         }    
-        this.result = doc.toString();
+
+        this.result = "";
+        for(Element child : doc.body().children()){
+            this.result += child.toString();
+        }
+
+        // remove HTML specials
+        this.result = this.result.replace("&gt;", ">");
+        this.result = this.result.replace("&lt;", "<");
+        this.result = this.result.replace("&quot;", "\"");
+        this.result = this.result.replace("&nbsp;", " ");
+        this.result = this.result.replace("&amp;", " ");
+        this.result = this.result.replace("&", "·");
     }
 }

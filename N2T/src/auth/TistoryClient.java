@@ -158,8 +158,11 @@ public class TistoryClient {
                          + "blogName=" + this.blogName + "&"
                          + "title=" + title + "&"
                          + "content=" + content + "&"
-                         + "visibility=3";
-            HttpConnection.request(postURL, "POST", param);
+                         + "visibility=0";
+            HttpConnectionVO result = HttpConnection.request(postURL, "POST", param);
+            if(result.getCode() >= 300){
+                throw new Exception("[티스토리 포스팅 실패] : " + result.getBody());
+            }
         }
         catch(Exception e){
             throw new Exception(e.getMessage());
