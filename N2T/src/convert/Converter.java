@@ -133,14 +133,14 @@ public class Converter {
      * Convert ContentType.TABLE 'element' to Tistory format
      * @param element should be converted to table.
      */
-    private void convertTable(Element element){
+    private void convertTable(Element element) {
         Element tableBody = element.child(0).child(0).child(0);
         String table = "<table style=\"border-collapse: collapse; width: 100%;\" border=\"1\" data-ke-align=\"alignLeft\">";
         table += "<tbody>";
         for(Element rows : tableBody.children()){
             table += "<tr>";
             for(Element columns : rows.children()){
-                table += "<td>" + columns.text() + "</td>";
+                table += "<td>" + escapeSpecials(columns.text()) + "</td>";
             }
             table += "</tr>";
         }
@@ -154,15 +154,15 @@ public class Converter {
      * Convert ContentType.QUOTATION 'element' to Tistory format
      * @param element should be converted to quotation.
      */
-    private void convertQUOTATION(Element element){
+    private void convertQUOTATION(Element element) {
         Element quotationContatiner = element.child(0);
         Element quote = quotationContatiner.child(0);
         Element cite = quotationContatiner.child(1);
 
         String quotation = "<blockquote data-ke-style=\"style1\">";
-        quotation += quote.text();
+        quotation += escapeSpecials(quote.text());
         quotation += "<br/>";
-        quotation += "- " + cite.text() + " -";
+        quotation += "- " + escapeSpecials(cite.text()) + " -";
         quotation += "</blockquote>";
 
         this.result += quotation;
@@ -175,7 +175,7 @@ public class Converter {
      * Convert ContentType.TEXT 'element' to Tistory format
      * @param element should be converted to text.
      */
-    private void convertTEXT(Element element){
+    private void convertTEXT(Element element) {
         Element textModule = element.child(0);
         for(Element child : textModule.children()){
             Matcher paragraphMatcher = paragraphForm.matcher(child.className());
@@ -199,12 +199,12 @@ public class Converter {
             Elements links = child.getElementsByTag("a");
             Boolean isLink = (links.size() != 0);
             if(isLink){
-                paragraph += "<a href=\"" + links.attr("href") + "\" target=\"_blank\" rel=\"noopener\">";
+                paragraph += "<a href=\"" + escapeSpecials(links.attr("href")) + "\" target=\"_blank\" rel=\"noopener\">";
             }
             
                 // empty text
                 if(child.text().equals("&ZeroWidthSpace;")) paragraph += "&nbsp;";
-                else paragraph += child.text();
+                else paragraph += escapeSpecials(child.text());
 
             if(isLink) paragraph += "</a>";
             paragraph += "</p>";
@@ -217,9 +217,9 @@ public class Converter {
      * Convert ContentType.CODE 'element' to Tistory format
      * @param element should be converted to code.
      */
-    private void convertCODE(Element element){
+    private void convertCODE(Element element) {
         String code = "<pre class=\"bash\" data-ke-language=\"bash\" data-ke-type=\"codeblock\"><code>";
-        code += element.text();
+        code += escapeSpecials(element.text());
         code += "</code></pre>";
 
         this.result += code;
@@ -229,7 +229,7 @@ public class Converter {
      * Convert ContentType.IMAGE 'element' to Tistory format
      * @param element should be converted to image.
      */
-    private void convertIMAGE(Element element){
+    private void convertIMAGE(Element element) {
         // image
         Elements imageModule = element.child(0).select("img");
         String imageSrc = imageModule.attr("src");
@@ -245,7 +245,7 @@ public class Converter {
         String caption = "";
         if(element.childrenSize() >= 2){
             Element captionModule = element.child(1);
-            caption = captionModule.text();
+            caption = escapeSpecials(captionModule.text());
         }
         String image = "<p><img src=\"\" caption=\"" + caption + "\" /></p>";
 
@@ -256,7 +256,7 @@ public class Converter {
      * Convert ContentType.HORIZONTALLINE 'element' to Tistory format
      * @param element should be converted to horizontalLine.
      */
-    private void convertHORIZONTALLINE(Element element){
+    private void convertHORIZONTALLINE(Element element) {
         String horizontalLine = "<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />";
         this.result += horizontalLine;
     }
@@ -266,7 +266,7 @@ public class Converter {
      * @param element should be converted to link.
      * @deprecated
      */
-    private void convertLINK(Element element){
+    private void convertLINK(Element element) {
     }
 
     /**
@@ -282,7 +282,7 @@ public class Converter {
      * @see Converter#convertHORIZONTALLINE(Element)
      * @see Converter#convertLINK(Element)
      */
-    private void dfsDOM(Elements elements){
+    private void dfsDOM(Elements elements) {
         for(Element element : elements){
             ContentType elementContentType = getContentType(element);
 
@@ -327,7 +327,7 @@ public class Converter {
      * 
      * @see Converter#dfsDOM(Elements)
      */
-    public void stylize(){
+    public void stylize() {
         this.result = "";
         // stylize with HTML DOM DFS traversal
         dfsDOM(this.content);
@@ -367,7 +367,7 @@ public class Converter {
     /**
      * Replace all special chars in attribute 'result' to URL encoding.
      */
-    public void removeSpecials() throws Exception{
+    public void decodeSpecials() throws Exception{
         // remove HTML specials
         this.result = this.result.replace("&gt;", ">");
         this.result = this.result.replace("&lt;", "<");
@@ -380,5 +380,18 @@ public class Converter {
         catch (Exception e){
             throw new Exception("Encoding 중 문제가 발생했습니다.");
         }
+    }
+
+    /**
+     * Replace all special chars in attribute 'result' to encoding.
+     */
+    private String escapeSpecials(String string) {
+        // remove HTML specials
+        string = string.replace(">", "&gt;");
+        string = string.replace("<", "&lt;");
+        string = string.replace("\"", "&quot;");
+        string = string.replace(" ", "&nbsp;");
+
+        return string;
     }
 }

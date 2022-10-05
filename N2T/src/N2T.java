@@ -82,7 +82,7 @@ public class N2T {
             }
             converter.attachIMAGE(replacers);
 
-            converter.removeSpecials();
+            converter.decodeSpecials();
             
             // get result
 			String result = converter.getResult();
@@ -119,14 +119,14 @@ public class N2T {
                 }
                 catch(Exception e){
                     if(num_tries++ == max_tries){
-                        System.out.println("[검증 오류] : 사용자 정보 초기화가 반복적으로 실패해 프로그램을 종료합니다.");
+                        System.out.println("[검증 오류] : 작업 중 반복적으로 실패해 프로그램을 종료합니다.");
                         return;
                     } 
-                    System.out.println("[작업 중 오류 발생] : 로그인을 재시도합니다.");
+                    System.out.println("[작업 중 오류 발생] : " + e.getMessage());
                     try{
                         initConfig();
                     } catch(Exception initConfigE){
-                        System.out.println("[종료] : 초기화 중 오류 발생으로 프로그램을 종료합니다.");
+                        System.out.println("[종료] : 작업 중 오류 발생으로 프로그램을 종료합니다.");
                         return;
                     }               
                 }
