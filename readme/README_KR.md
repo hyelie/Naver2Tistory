@@ -30,7 +30,7 @@
 ### 실행 방법
 이 프로그램은 다음과 같이 실행할 수 있습니다.
 
-[링크](https://github.com/hyelie/Naver2Tistory/releases/tag/v1.0.0)에서 zip파일을 다운로드하고 압축 해제합니다. zip파일 내에는 N2T.jar(또는 N2T.exe), config.json, list.txt 3개의 파일이 있습니다.
+[링크](https://github.com/hyelie/Naver2Tistory/releases/tag/v1.0.2)에서 zip파일을 다운로드하고 압축 해제합니다. zip파일 내에는 N2T.jar(또는 N2T.exe), config.json, list.txt 3개의 파일이 있습니다.
 
 이후 환경설정 파일에 값을 넣어야 합니다.
 
@@ -117,10 +117,12 @@ build
         - 소스코드
         - 링크
 
-* 1.0.1 (현재)
+* 1.0.1
     - (Fixed) URL 인식 오류 해결
     - (Fixed) 포스트에 <, >, ", & 기호가 있는 경우 올라가지 않던 문제 해결
-    - (Changed) 티스토리 블로그에 공개 상태로 업로드
+    - (Changed) 티스토리 블로그에 **비공개** 상태로 업로드
+* 1.0.2 (현재)
+    - (Fixed) 코드에 << EOF와 같이 HTML에서 끝을 나타내는 구문이 있는 경우 올라가지 않던 문제 해결
 * 1.1.0
     * 네이버 블로그의 글 폰트 사이즈에 따라 티스토리의 대제목, 중제목, 소제목으로 분류 기능 추가 예정
 * 1.2.0

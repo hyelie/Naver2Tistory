@@ -31,7 +31,7 @@ Please install after checking the JDK installation method for each operating sys
 
 This program can be run as follows:
 
-Download and unzip the zip file from [link](https://github.com/hyelie/Naver2Tistory/releases/tag/v1.0.0). There are 3 files in the zip file: N2T.jar(or N2T.exe), config.json, and list.txt
+Download and unzip the zip file from [link](https://github.com/hyelie/Naver2Tistory/releases/tag/v1.0.2). There are 3 files in the zip file: N2T.jar(or N2T.exe), config.json, and list.txt
 
 After that, you need to put the value in the configuration file.
 
@@ -118,10 +118,12 @@ build
         - horizontal divider
         - source code
         - link
-* 1.0.1 (Current)
+* 1.0.1
     - (Fixed) URL recognition error resolved
     - (Fixed) Fixed an issue where posts would not be uploaded if there were <, >, ", & symbols in the post.
-    - (Changed) uploaded to the Tistory blog in a "public" state
+    - (Changed) uploaded to the Tistory blog in a **private** state
+* 1.0.2 (Current)
+    - (Fixed) Fixed an issue where posts would not be uploaded if there were << EOF symbols in the code block.
 * 1.1.0
     - According to the font size on the Naver Blog, classifictaion function which classify headline, middle title, small title on Tistory Blog whill be added.
 * 1.2.0
