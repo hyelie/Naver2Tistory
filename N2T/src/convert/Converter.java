@@ -365,15 +365,9 @@ public class Converter {
     }
 
     /**
-     * Replace all special chars in attribute 'result' to URL encoding.
+     * Replace all chars in attribute 'result' to UTF-8.
      */
-    public void decodeSpecials() throws Exception{
-        // remove HTML specials
-        this.result = this.result.replace("&gt;", ">");
-        this.result = this.result.replace("&lt;", "<");
-        this.result = this.result.replace("&quot;", "\"");
-        this.result = this.result.replace("&nbsp;", " ");
-
+    public void encode2UTF8() throws Exception{
         try{
             this.result = URLEncoder.encode(this.result, "UTF-8");
         }
@@ -383,7 +377,7 @@ public class Converter {
     }
 
     /**
-     * Replace all special chars in attribute 'result' to encoding.
+     * Replace all special chars in attribute 'result' to encoded.
      */
     private String escapeSpecials(String string) {
         // remove HTML specials

@@ -82,7 +82,7 @@ public class N2T {
             }
             converter.attachIMAGE(replacers);
 
-            converter.decodeSpecials();
+            converter.encode2UTF8();
             
             // get result
 			String result = converter.getResult();
