@@ -135,10 +135,10 @@ build
 
 ## 기여 방법
 
-1. [https://github.com/hyelie/Naver2Tistory/fork](https://github.com/hyelie/Naver2Tistory/fork)에서 해당 레포지토리를 포크합니다
-2. `git checkout -b feature/featureName` 명령어로 새 브랜치를 만드세요.
-3. `git commit -am 'Add some feature'` 명령어로 커밋하세요.
-4. `git push origin feature/featureName` 명령어로 브랜치에 푸시하세요. 
+1. [https://github.com/hyelie/Naver2Tistory/fork](https://github.com/hyelie/Naver2Tistory/fork)에서 해당 레포지토리를 포크합니다.
+2. `git checkout -b feature/featureName` 명령어로 새 브랜치를 만듭니다.
+3. `git commit -am 'Add some feature'` 명령어로 커밋합니다.
+4. `git push origin feature/featureName` 명령어로 브랜치에 푸시합니다.
 5. 풀 리퀘스트를 보내주세요.
 
 ## License
