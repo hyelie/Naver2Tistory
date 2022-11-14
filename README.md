@@ -21,8 +21,8 @@ I made this program to automate moving from Naver Blog to Tistory Blog.
     - source code
     - link
 
-## Getting Started
-### prerequisite
+## Usage
+### Requirements
 JDK 17 is need to run this program.
 
 Please install after checking the JDK installation method for each operating system from the [link](https://github.com/hyelie/Naver2Tistory#environment-setup).
@@ -77,8 +77,8 @@ If you downloaded .exe file, execute N2T.exe file in the unzipped folder.
 ### Enter Tistory Code
 For the CODE appears during execution, enter xxx part in the url of 'code=xxx' that appears in the window where you pressed 'allow' button.
 
-## Installation
-### Requirements
+## Getting Started
+### Prerequisite
 
 JDK 17
 
