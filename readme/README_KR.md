@@ -94,7 +94,7 @@ Windows
 
 [링크](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)에서 Java SE 17을 설치합니다.
 
-### 설치 및 실행
+### 설치
 
 해당 저장소를 클론한 후, N2T폴더에서 빌드합니다.
 ```
