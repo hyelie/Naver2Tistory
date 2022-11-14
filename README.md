@@ -96,7 +96,7 @@ Windows
 
 Install Java SE 17 on following [link](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
 
-### Execution
+### Installation
 
 After cloning the repository, build in the N2T folder.
 ```
