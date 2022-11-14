@@ -21,8 +21,8 @@
     - 소스코드
     - 링크
 
-## 시작하기
-### 전제 조건
+## 사용법
+### 요구 사항
 이 프로그램을 실행하기 전 JDK 17이 설치되어 있어야 합니다.
 
 [여기](https://github.com/hyelie/Naver2Tistory/blob/main/readme/README_KR.md#%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1)에서 운영체제별 JDK 설치 방법을 확인 후, 설치해 주세요.
@@ -76,8 +76,8 @@ exe 파일을 다운로드 한 경우, 압축 해제한 폴더에서 N2T.exe를 
 ### Tistory Code 입력
 실행 중 나오는 CODE는 '허가하기' 버튼을 누른 창에서 나타나는 url의 'code=xxx'부분에서 xxx를 입력하면 됩니다.
 
-## 설치
-### 요구 환경
+## 시작하기
+### 전제 조건
 JDK 17
 
 ### 환경 구성
@@ -94,13 +94,13 @@ Windows
 
 [링크](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)에서 Java SE 17을 설치합니다.
 
-### 실행
+### 설치 및 실행
 
 해당 저장소를 클론한 후, N2T폴더에서 빌드합니다.
 ```
 git clone https://github.com/hyelie/Naver2Tistory.git
 cd Naver2Tistory/N2T
-build
+// build
 ```
 
 ## 업데이트 내역
