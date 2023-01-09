@@ -1,4 +1,4 @@
-# Naver2Tistory - 블로그 이사 프로그램
+# Naver2Tistory - 블로그 이사 자동화 프로그램
 
 다른 언어로 읽기: [영어](../README.md)
 
