@@ -1,4 +1,4 @@
-# Naver2Tistory - Blog Moving program
+# Naver2Tistory - Blog moving automation program from Naver to Tistory
 
 Read this with [Korean](./readme/README_KR.md)
 
