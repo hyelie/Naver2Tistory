@@ -2,6 +2,10 @@
 
 Read this with [Korean](./readme/README_KR.md)
 
+<p align="center">
+    <img src="./image/logo.png">
+</p>
+
 ## Overview
 This program reformats post contents to fit the Tistory Editor and upload to the Tistory Blog when you give Naver Blog posting link.
 
