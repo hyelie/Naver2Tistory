@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-import URLProcessor.NaverURLProcessor;
+import URLProcessor.blog.NaverURLProcessor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

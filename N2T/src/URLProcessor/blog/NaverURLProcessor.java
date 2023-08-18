@@ -1,7 +1,9 @@
-package URLProcessor;
+package URLProcessor.blog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import URLProcessor.BlogURLProcessor;
 
 public class NaverURLProcessor implements BlogURLProcessor {
     // Regular expression filtering [blog.naver.com/{NAVER_ID}/{POST_NUMBER}] format

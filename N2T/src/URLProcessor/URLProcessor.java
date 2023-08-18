@@ -3,6 +3,8 @@ package URLProcessor;
 import java.util.ArrayList;
 import java.util.List;
 
+import URLProcessor.blog.NaverURLProcessor;
+
 public class URLProcessor {
     private final List<BlogURLProcessor> blogURLProcessors = new ArrayList<>();
 
