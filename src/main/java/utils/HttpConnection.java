@@ -75,6 +75,7 @@ public class HttpConnection {
 		}
 	}
 
+	// TODO : encode된 것을 바로 올리는 식으로.
 	/**
 	 * Connect to parameter 'targetURL' with type 'type', paramter 'parameter' with file in parameter 'filePath'.
 	 * 
@@ -115,7 +116,6 @@ public class HttpConnection {
 			return HttpConnection.getResponse(con);
 		}
 		catch (Exception e) {
-			System.out.println("오류오류 ");
 			if (e instanceof SocketTimeoutException) {
 				throw new Exception("연결 시간 초과입니다.");
 			} else if (e instanceof ConnectException) {

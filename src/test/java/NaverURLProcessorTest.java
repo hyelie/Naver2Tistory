@@ -1,13 +1,14 @@
 import org.junit.Test;
 
-import URLProcessor.blog.NaverURLProcessor;
+import urlprocessor.UrlType;
+import urlprocessor.blog.NaverUrlProcessor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class NaverURLProcessorTest {
-    NaverURLProcessor naverURLProcessor = new NaverURLProcessor();
+    NaverUrlProcessor naverURLProcessor = new NaverUrlProcessor();
 
     String rawPattern1 = "https://blog.naver.com/jhi990823/222848946417";
     String rawPattern2 = "http://blog.naver.com/jhi990823/222848946417";
@@ -15,6 +16,11 @@ public class NaverURLProcessorTest {
     String processedPattern2 = "http://blog.naver.com/PostView.naver?blogId=jhi990823&logNo=222848946417";
     String invalidPattern1 = "http://hyelie.com";
     String invalidPattern2 = "https://blog.naver.com/invalidURL";
+
+    @Test
+    public void testURLType(){
+        assertEquals(UrlType.NAVER, naverURLProcessor.getUrlType());
+    }
 
     @Test
     public void testRawPatternMatches(){

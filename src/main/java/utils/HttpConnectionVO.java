@@ -11,15 +11,8 @@ public class HttpConnectionVO {
         this.code = code;
         this.body = body;
     }
-
-    public void setCode(Integer code){
-        this.code = code;
-    }
     public Integer getCode(){
         return code;
-    }
-    public void setBody(String body){
-        this.body = body;
     }
     public String getBody(){
         return body;

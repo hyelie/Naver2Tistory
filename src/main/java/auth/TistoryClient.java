@@ -14,36 +14,38 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class TistoryClient {
+public class TistoryClient implements AuthClient {
     private String appId;
     private String secretKey;
     private String blogName;
-    public String getBlogName(){ return this.blogName; }
     private String code;
     private String accessToken;
+    private void setAccessToken(String accessToken){ this.accessToken = accessToken; };
 
-    /**
-     * Construct TistoryClient object using config.json file.
-     * Read and store configuration datas from config.json.
-     * @throws Exception when config.json file does not exist, or unexpected error occurs.
-     */
     public TistoryClient() throws Exception{
+        initializeFromConfig(); 
+        authorize();
+    }
+
+    private void initializeFromConfig() throws Exception{
+        System.out.println("[검증 중] : /config/tistory.json 파일에 입력한 사용자 정보를 확인 중입니다.");
+
         try{
             JSONParser parser = new JSONParser();
-            Reader reader = new FileReader(Utils.getConfigPath());
+            Reader reader = new FileReader(Utils.getCurrentDirectory() + "/tistory.json");
             JSONObject config = (JSONObject) parser.parse(reader);
             this.appId = (String) config.getOrDefault("APP_ID", null);
             this.secretKey = (String) config.getOrDefault("SECRET_KEY", null);
             this.blogName = (String) config.getOrDefault("BLOG_NAME", null);
             this.accessToken = (String) config.getOrDefault("ACCESS_TOKEN", null);
-            if(this.appId == null || this.secretKey == null || this.blogName == null) throw new NullPointerException();
+            if(this.appId == null || this.secretKey == null || this.blogName == null) throw new NullPointerException("[검증 실패] : /config/tistory.json 파일에 필수값이 없습니다.");
         }
         catch(Exception e){
             if(e instanceof FileNotFoundException){
-                throw new Exception("[초기화 오류] : config.json 파일이 없습니다.");
+                throw new Exception("[초기화 오류] : /config/tistory.json 파일이 없습니다.");
             }
             else if(e instanceof NullPointerException){
-                throw new Exception("[초기화 오류] : config.json 파일에 값이 없습니다.");
+                throw new Exception("[초기화 오류] : /config/tistory.json 파일에 값이 없습니다.");
             }
             else{
                 throw new Exception("[초기화 오류] : 초기화 중 알 수 없는 오류가 발생했습니다.");
@@ -51,13 +53,40 @@ public class TistoryClient {
         }
     }
 
+    private void authorize() throws Exception {
+        if (!isAccessTokenValid()) {
+            openIssueCodeWindow();
+            String accessToken = issueAccessToken();
+            setAccessToken(accessToken);
+        }
+        System.out.println("[검증 완료] : /config/tistory.json 파일에 입력한 사용자 정보를 확인했습니다.");
+    }
+
     /**
-     * Issue new 'code' from Tistory API and store in the attribute.
-     * @throws Exception when error occurs while issuing code from Tistory API.
-     * * @see https://tistory.github.io/document-tistory-apis/auth/authorization_code.html
+     * @see https://tistory.github.io/document-tistory-apis/apis/v1/blog/list.html
      */
-    private void issueCode() throws Exception{
-        String issueCodeURL = String.format("https://www.tistory.com/oauth/authorize?client_id=%s&redirect_uri=http://%s.tistory.com&response_type=code", this.appId, this.blogName);
+    private Boolean isAccessTokenValid() throws Exception {
+        String checkAccessTokenURL = "https://www.tistory.com/apis/blog/info?"
+                                   + "access_token=" + this.accessToken + "&"
+                                   + "output=xml";
+        try{
+            HttpConnectionVO result = HttpConnection.request(checkAccessTokenURL, "GET", null);
+            return result.getCode() == 200;
+        }
+        catch(Exception e){
+            throw new Exception("[티스토리 acess token 검증 중 오류] : " + e.getMessage());
+        }
+    }
+
+    /**
+     * @see https://tistory.github.io/document-tistory-apis/auth/authorization_code.html
+     */
+    private void openIssueCodeWindow() throws Exception{     
+        String issueCodeURL = "https://www.tistory.com/oauth/authorize?"
+                            + "client_id=" + this.appId + "&"
+                            + "redirect_uri=http://" + this.blogName + ".tistory.com" + "&"
+                            + "response_type=code";
+
         try{
             System.out.println("            다음 링크를 인터넷 창에 입력해 주세요.");
             System.out.println("            " + issueCodeURL);
@@ -76,45 +105,21 @@ public class TistoryClient {
     }
 
     /**
-     * Determine whether 'accessToken' attribute is valid or not.
-     * @return true if accessToken is valid, false otherwise.
-     * @throws Exception when error occurs while connecting to URL.
-     * @see https://tistory.github.io/document-tistory-apis/apis/v1/blog/list.html
-     */
-    private Boolean isAccessTokenValid() throws Exception {
-        String checkAccessTokenURL = "https://www.tistory.com/apis/blog/info?"
-                                   + "access_token=" + this.accessToken + "&"
-                                   + "output=xml";
-        HttpConnectionVO result;
-        try{
-            result = HttpConnection.request(checkAccessTokenURL, "GET", null);
-            if(result.getCode() != 200) return false;
-            else return true;
-        }
-        catch(Exception e){
-            throw new Exception("[티스토리 acess token 검증 중 오류] : " + e.getMessage());
-        }
-    }
-
-    /**
-     * Issue new 'accessToken' and store in the attribute.
-     * @throws Exception when error occurs while connecting to URL.
      * @see https://tistory.github.io/document-tistory-apis/auth/authorization_code.html
      */
-    private void issueAccessToken() throws Exception{
+    private String issueAccessToken() throws Exception{
         String isCodeValidURL = "https://www.tistory.com/oauth/access_token?"
                               + "client_id=" + this.appId + "&"
                               + "client_secret=" + this.secretKey + "&"
                               + "redirect_uri=http://" + this.blogName + ".tistory.com" + "&"
                               + "code=" + this.code + "&"
                               + "grant_type=authorization_code";
-        
-        HttpConnectionVO result;
+
         try{
-            result = HttpConnection.request(isCodeValidURL, "GET", null);
+            HttpConnectionVO result = HttpConnection.request(isCodeValidURL, "GET", null);
             if(result.getCode() == 200){
                 String[] responseArray = result.getBody().toString().split("=");
-                this.accessToken = responseArray[1];
+                return responseArray[1];
             }
             else{
                 throw new Exception("CODE, APP_ID, 또는 SECRET_KEY가 잘못되었습니다. 다시 한 번 확인해 주세요.");
@@ -125,40 +130,20 @@ public class TistoryClient {
         }
     }
 
-    /**
-     * Authorize in tistory. If current config data is wrong,
-     * then issue new config data. Finally store config data in the attribute.
-     * 
-     * @throws Exception when exception occur while checking or issuing token.
-     */
-    public void authorize() throws Exception {
-        try{
-            if(!isAccessTokenValid()){
-                issueCode();
-                issueAccessToken();
-            }
-        }
-        catch(Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
-
+    // TODO : tree 받으면 그거 고쳐서 올리는 식으로
     /**
      * Upload post in Tistory.
-     * 
-     * @param title - posting title
-     * @param content - posting content
      * @see https://tistory.github.io/document-tistory-apis/apis/v1/post/write.html
      * @throws Exception when exception occur while checking or issuing token.
      */
     public void post(String title, String content) throws Exception {
+        String postURL = "https://www.tistory.com/apis/post/write";
+        String param = "access_token=" + this.accessToken + "&"
+                        + "blogName=" + this.blogName + "&"
+                        + "title=" + title + "&"
+                        + "content=" + content + "&"
+                        + "visibility=0";
         try{
-            String postURL = "https://www.tistory.com/apis/post/write";
-            String param = "access_token=" + this.accessToken + "&"
-                         + "blogName=" + this.blogName + "&"
-                         + "title=" + title + "&"
-                         + "content=" + content + "&"
-                         + "visibility=0";
             HttpConnectionVO result = HttpConnection.request(postURL, "POST", param);
             if(result.getCode() >= 300){
                 throw new Exception("[티스토리 포스팅 실패] : " + result.getBody());
@@ -169,18 +154,17 @@ public class TistoryClient {
         }
     }
 
+    // TODO : 파일이 아니라, base64로 인코딩 된 것을 바로 올리는 식으로 바꾸기. tree에 base64로 인코딩 된 이미지가 있을 것임.
     /**
      * Upload image to Tistory server and get 'replacer' list.
-     * 
-     * @throws Exception when exception occur while uploading or parsing image.
      * @see https://tistory.github.io/document-tistory-apis/apis/v1/post/attach.html
      */
-    public String attach(Integer imageNum) throws Exception{
+    public String uploadImageAndGetReplacer(Integer imageNum) throws Exception{
+        String postURL = "https://www.tistory.com/apis/post/attach";
+        String param = "access_token=" + this.accessToken + "&"
+                     + "blogName=" + this.blogName + "&"
+                     + "output=json";
         try{
-            String postURL = "https://www.tistory.com/apis/post/attach";
-            String param = "access_token=" + this.accessToken + "&"
-                         + "blogName=" + this.blogName + "&"
-                         + "output=json";
             HttpConnectionVO result = HttpConnection.request(postURL, "POST", param, Utils.getImageDirectory() + String.valueOf(imageNum) + ".jpg");
 
             if(result.getCode() == 200){

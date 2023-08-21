@@ -8,8 +8,6 @@ import org.jsoup.Connection.Response;
 import java.io.IOException;
 
 public class Crawler {
-    private Document doc;
-
     /**
      * Crawl given URL and store it in the attribute
      * 
@@ -22,13 +20,12 @@ public class Crawler {
             Connection con = Jsoup.connect(URL).timeout(5000).ignoreHttpErrors(true);
             Response response = con.execute();
             if (response.statusCode() == 200) {
-                this.doc = con.get();
+                return con.get();
             } else{ // page not found
                 throw new Exception(ResponseMessage.NOT_FOUND.getLabel());
             }
         } catch(IOException e) { // 이외 connection 중 발생하는 오류
             throw new Exception(ResponseMessage.INTERNAL_ERROR.getLabel());
         }
-        return this.doc;
     }
 }

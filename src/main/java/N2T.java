@@ -8,13 +8,13 @@ import org.jsoup.nodes.Document;
 import auth.TistoryClient;
 import convert.Converter;
 import convert.Crawler;
-import convert.URLProcessor;
+import urlprocessor.UrlProcessor;
 import utils.Utils;
 
 public class N2T {
     private List<String> URLs;
     private TistoryClient tistoryClient;
-    private URLProcessor urlProcessor = new URLProcessor();
+    private UrlProcessor urlProcessor = new UrlProcessor();
     private Crawler crawler = new Crawler();
     private Converter converter = new Converter();
 
@@ -26,7 +26,6 @@ public class N2T {
             this.tistoryClient = new TistoryClient();
             
             // config 파일에 있는 값이 맞는지 확인 및 API가 정상작동하는지 테스트
-            tistoryClient.authorize();
             System.out.println("[검증 완료] : 기존에 입력한 사용자 정보를 확인했습니다.");
         }
         catch(Exception e){
@@ -56,7 +55,7 @@ public class N2T {
             Utils.clearImageFolder();
 
             // process URL
-            String processedURL = urlProcessor.getOriginURL(URL);
+            String processedURL = urlProcessor.process(URL).getURL();
 
             // crawl from processed URL
             Document doc = crawler.crawl(processedURL);
@@ -77,9 +76,9 @@ public class N2T {
 
             // upload and attach image
             List<String> replacers = new ArrayList<String>();
-            for(int i = 0; i < Utils.getNumImages(); i++){
-                replacers.add(tistoryClient.attach(i));
-            }
+            // for(int i = 0; i < Utils.getNumImages(); i++){
+            //     replacers.add(tistoryClient.attach(i));
+            // }
             converter.attachIMAGE(replacers);
 
             converter.encode2UTF8();
@@ -136,8 +135,8 @@ public class N2T {
 
         System.out.println("[종료] : Naver to Tistory 프로그램을 종료합니다.");
         
-        String userBlogURL = "https://" + tistoryClient.getBlogName() + ".tistory.com/manage/posts";
-        Utils.openWindow(userBlogURL);
+        //String userBlogURL = "https://" + tistoryClient.getBlogName() + ".tistory.com/manage/posts";
+        //Utils.openWindow(userBlogURL);
         // TODO : exe 파일로 빼고 실행 잘 되는지 보기.
     }
 }
