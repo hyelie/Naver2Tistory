@@ -9,15 +9,15 @@ import java.io.IOException;
 
 public class Crawler {
     /**
-     * Crawl given URL and store it in the attribute
+     * Crawl given url and store it in the attribute
      * 
-     * @param URL - Given URL to crawl
+     * @param url - Given URL to crawl
      * @throws Exception when data is not received
      * because of page does no exist or an unexpected error while receiving data while crawling.
      */ 
-    public Document crawl(String URL) throws Exception{
+    public Document crawl(String url) throws Exception{
         try{
-            Connection con = Jsoup.connect(URL).timeout(5000).ignoreHttpErrors(true);
+            Connection con = Jsoup.connect(url).timeout(5000).ignoreHttpErrors(true);
             Response response = con.execute();
             if (response.statusCode() == 200) {
                 return con.get();

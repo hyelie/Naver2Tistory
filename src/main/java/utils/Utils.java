@@ -74,7 +74,7 @@ public class Utils {
     /**
      * Get absolute path of URL list file
      */
-    public static String getURLListPath(){
+    public static String getUrlListPath(){
         return Utils.getCurrentDirectory() + "/list.txt";
     }
 

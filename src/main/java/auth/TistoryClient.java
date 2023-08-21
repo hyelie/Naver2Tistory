@@ -66,11 +66,11 @@ public class TistoryClient implements AuthClient {
      * @see https://tistory.github.io/document-tistory-apis/apis/v1/blog/list.html
      */
     private Boolean isAccessTokenValid() throws Exception {
-        String checkAccessTokenURL = "https://www.tistory.com/apis/blog/info?"
+        String checkAccessTokenUrl = "https://www.tistory.com/apis/blog/info?"
                                    + "access_token=" + this.accessToken + "&"
                                    + "output=xml";
         try{
-            HttpConnectionVO result = HttpConnection.request(checkAccessTokenURL, "GET", null);
+            HttpConnectionVO result = HttpConnection.request(checkAccessTokenUrl, "GET", null);
             return result.getCode() == 200;
         }
         catch(Exception e){
@@ -82,15 +82,15 @@ public class TistoryClient implements AuthClient {
      * @see https://tistory.github.io/document-tistory-apis/auth/authorization_code.html
      */
     private void openIssueCodeWindow() throws Exception{     
-        String issueCodeURL = "https://www.tistory.com/oauth/authorize?"
+        String issueCodeUrl = "https://www.tistory.com/oauth/authorize?"
                             + "client_id=" + this.appId + "&"
                             + "redirect_uri=http://" + this.blogName + ".tistory.com" + "&"
                             + "response_type=code";
 
         try{
             System.out.println("            다음 링크를 인터넷 창에 입력해 주세요.");
-            System.out.println("            " + issueCodeURL);
-            Utils.openWindow(issueCodeURL);
+            System.out.println("            " + issueCodeUrl);
+            Utils.openWindow(issueCodeUrl);
             this.code = Utils.getInput("            발급받은 Code를 입력해 주세요.");
         }
         catch (Exception e){
@@ -108,7 +108,7 @@ public class TistoryClient implements AuthClient {
      * @see https://tistory.github.io/document-tistory-apis/auth/authorization_code.html
      */
     private String issueAccessToken() throws Exception{
-        String isCodeValidURL = "https://www.tistory.com/oauth/access_token?"
+        String isCodeValidUrl = "https://www.tistory.com/oauth/access_token?"
                               + "client_id=" + this.appId + "&"
                               + "client_secret=" + this.secretKey + "&"
                               + "redirect_uri=http://" + this.blogName + ".tistory.com" + "&"
@@ -116,7 +116,7 @@ public class TistoryClient implements AuthClient {
                               + "grant_type=authorization_code";
 
         try{
-            HttpConnectionVO result = HttpConnection.request(isCodeValidURL, "GET", null);
+            HttpConnectionVO result = HttpConnection.request(isCodeValidUrl, "GET", null);
             if(result.getCode() == 200){
                 String[] responseArray = result.getBody().toString().split("=");
                 return responseArray[1];
@@ -137,14 +137,14 @@ public class TistoryClient implements AuthClient {
      * @throws Exception when exception occur while checking or issuing token.
      */
     public void post(String title, String content) throws Exception {
-        String postURL = "https://www.tistory.com/apis/post/write";
+        String postUrl = "https://www.tistory.com/apis/post/write";
         String param = "access_token=" + this.accessToken + "&"
                         + "blogName=" + this.blogName + "&"
                         + "title=" + title + "&"
                         + "content=" + content + "&"
                         + "visibility=0";
         try{
-            HttpConnectionVO result = HttpConnection.request(postURL, "POST", param);
+            HttpConnectionVO result = HttpConnection.request(postUrl, "POST", param);
             if(result.getCode() >= 300){
                 throw new Exception("[티스토리 포스팅 실패] : " + result.getBody());
             }
@@ -160,12 +160,12 @@ public class TistoryClient implements AuthClient {
      * @see https://tistory.github.io/document-tistory-apis/apis/v1/post/attach.html
      */
     public String uploadImageAndGetReplacer(Integer imageNum) throws Exception{
-        String postURL = "https://www.tistory.com/apis/post/attach";
+        String postUrl = "https://www.tistory.com/apis/post/attach";
         String param = "access_token=" + this.accessToken + "&"
                      + "blogName=" + this.blogName + "&"
                      + "output=json";
         try{
-            HttpConnectionVO result = HttpConnection.request(postURL, "POST", param, Utils.getImageDirectory() + String.valueOf(imageNum) + ".jpg");
+            HttpConnectionVO result = HttpConnection.request(postUrl, "POST", param, Utils.getImageDirectory() + String.valueOf(imageNum) + ".jpg");
 
             if(result.getCode() == 200){
                 JSONParser jsonParser = new JSONParser();

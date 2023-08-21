@@ -13,7 +13,7 @@ public class UrlVO {
         return this.urlType;
     }
 
-    public String getURL(){
+    public String getUrl(){
         return this.url;
     }
 }

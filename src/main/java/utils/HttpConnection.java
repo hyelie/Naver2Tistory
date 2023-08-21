@@ -37,9 +37,9 @@ public class HttpConnection {
 	}
 
 	/**
-	 * Connect to parameter 'targetURL' with type 'type', paramter 'parameter'.
+	 * Connect to parameter 'targetUrl' with type 'type', paramter 'parameter'.
 	 * 
-	 * @param targetURL - connecting url
+	 * @param targetUrl - connecting url
 	 * @param type - HTTP type. (GET, POST, ...)
 	 * @param parameter - HTTP connection paramter
 	 * @return HTTPConnectionVO
@@ -47,10 +47,10 @@ public class HttpConnection {
 	 * @see HttpConnection#getResponse(HttpURLConnection)
 	 * @throws Exception when connection timeout, or refused, otherwise.
 	 */
-	public static HttpConnectionVO request(String targetURL, String type, String parameter) throws Exception {
+	public static HttpConnectionVO request(String targetUrl, String type, String parameter) throws Exception {
 		HttpURLConnection con = null;
 		try {
-			URL url = new URL(targetURL);
+			URL url = new URL(targetUrl);
 			con = (HttpURLConnection) url.openConnection();
 
 			con.setRequestMethod(type);
@@ -88,10 +88,10 @@ public class HttpConnection {
 	 * @see HttpConnection#getResponse(HttpURLConnection)
 	 * @throws Exception when connection timeout, or refused, otherwise.
 	 */
-	public static HttpConnectionVO request(String targetURL, String type, String parameter, String filePath) throws Exception {
+	public static HttpConnectionVO request(String targetUrl, String type, String parameter, String filePath) throws Exception {
 		HttpURLConnection con = null;
 		try {
-			URL url = new URL(targetURL + "?" + parameter);
+			URL url = new URL(targetUrl + "?" + parameter);
 			con = (HttpURLConnection) url.openConnection();
 
 			con.setRequestMethod(type);

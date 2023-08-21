@@ -12,7 +12,7 @@ import urlprocessor.UrlProcessor;
 import utils.Utils;
 
 public class N2T {
-    private List<String> URLs;
+    private List<String> urls;
     private TistoryClient tistoryClient;
     private UrlProcessor urlProcessor = new UrlProcessor();
     private Crawler crawler = new Crawler();
@@ -35,12 +35,12 @@ public class N2T {
     }
 
     // 프로그램 실행 전에 list.txt에 있는 url들을 읽어 옴.
-    private void initURLs() throws Exception{
+    private void initUrls() throws Exception{
         try{
-            // 입력 파일에 있는 URL 입력받아 저장
+            // 입력 파일에 있는 url 입력받아 저장
             System.out.println("[파일 읽는 중] : list.txt 파일을 읽는 중입니다.");
-            Path path = Paths.get(Utils.getURLListPath());
-            URLs = Utils.readList(path);
+            Path path = Paths.get(Utils.getUrlListPath());
+            urls = Utils.readList(path);
             System.out.println("[파일 읽기 완료] : list.txt 파일을 읽었습니다.");
         }
         catch(Exception e){
@@ -48,17 +48,17 @@ public class N2T {
         }
     }
 
-    // 이미지 폴더 clear, URL 가공, crawling 및 이미지 다운로드, 이미지 업로드, crawling 결과 tistory 양식으로 stylize, upload
-    private void step(String URL) throws Exception{
+    // 이미지 폴더 clear, url 가공, crawling 및 이미지 다운로드, 이미지 업로드, crawling 결과 tistory 양식으로 stylize, upload
+    private void step(String url) throws Exception{
         try{
             // clear image folder 
             Utils.clearImageFolder();
 
-            // process URL
-            String processedURL = urlProcessor.process(URL).getURL();
+            // process url
+            String processedUrl = urlProcessor.process(url).getUrl();
 
-            // crawl from processed URL
-            Document doc = crawler.crawl(processedURL);
+            // crawl from processed url
+            Document doc = crawler.crawl(processedUrl);
 
             // get post from crawled data
             converter.setPost(doc);
@@ -101,20 +101,20 @@ public class N2T {
         // 초기화
         try{
             initConfig();
-            initURLs();
+            initUrls();
         } catch(Exception e){
             System.out.println("[종료] : 초기화 중 오류 발생으로 프로그램을 종료합니다.");
             return;
         }        
         System.out.println("[시작] : Naver to Tistory 작업을 시작합니다.");
 
-        // 모든 URL에 대해 작업 진행
-        for(String URL : URLs){
+        // 모든 url에 대해 작업 진행
+        for(String url : urls){
             // 정상적으로 끝났다면 해당 작업 종료, 그렇지 않으면 오류 메시지 출력 후 최대 1회 재시도.
             int num_tries = 0, max_tries = 2;
             while(true){
                 try{
-                    step(URL);
+                    step(url);
                 }
                 catch(Exception e){
                     if(num_tries++ == max_tries){
@@ -135,8 +135,8 @@ public class N2T {
 
         System.out.println("[종료] : Naver to Tistory 프로그램을 종료합니다.");
         
-        //String userBlogURL = "https://" + tistoryClient.getBlogName() + ".tistory.com/manage/posts";
-        //Utils.openWindow(userBlogURL);
+        //String userBlogUrl = "https://" + tistoryClient.getBlogName() + ".tistory.com/manage/posts";
+        //Utils.openWindow(userBlogUrl);
         // TODO : exe 파일로 빼고 실행 잘 되는지 보기.
     }
 }
