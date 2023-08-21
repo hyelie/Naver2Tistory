@@ -3,7 +3,7 @@
 다른 언어로 읽기: [영어](../README.md)
 
 <p align="center">
-    <img src="../image/logo.png">
+    <img src="/readme/logo.png">
 </p>
 
 ## 개요

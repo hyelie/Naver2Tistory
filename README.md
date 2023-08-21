@@ -1,9 +1,9 @@
-# Naver2Tistory - Blog moving automation program
+# Naver2Tistory - Blog migration program
 
 Read this with [Korean](./readme/README_KR.md)
 
 <p align="center">
-    <img src="./image/logo.png">
+    <img src="/readme/logo.png">
 </p>
 
 ## Overview
