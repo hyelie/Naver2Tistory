@@ -6,8 +6,6 @@ import convert.SupportType;
 import convert.blogPost.BlogPost;
 import convert.blogPost.ConvertedTreeNode;
 import convert.scrappers.naver.NaverScrapper;
-import urlprocessor.UrlProcessor;
-import urlprocessor.UrlType;
 import utils.Utils;
 
 import static org.junit.Assert.assertEquals;

@@ -6,7 +6,7 @@ import java.util.List;
 import urlprocessor.blogUrlProcessors.NaverUrlProcessor;
 
 public class UrlProcessor {
-    private final List<BlogUrlProcessor> blogUrlProcessors = new ArrayList<>();
+    private static final List<BlogUrlProcessor> blogUrlProcessors = new ArrayList<>();
 
     public UrlProcessor(){
         blogUrlProcessors.add(new NaverUrlProcessor());

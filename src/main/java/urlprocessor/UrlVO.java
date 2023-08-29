@@ -1,5 +1,6 @@
 package urlprocessor;
 
+// TODO : getter 고려
 public class UrlVO {
     UrlType urlType;
     String url;
