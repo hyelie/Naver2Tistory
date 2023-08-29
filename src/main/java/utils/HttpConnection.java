@@ -108,7 +108,7 @@ public class HttpConnection {
 			dos.writeBytes("--" + BOUNDARY + "\r\n");
 			dos.writeBytes("Content-Disposition: form-data;name=\"uploadedfile\";filename=\"1.jpg\"\r\n");
 			dos.writeBytes("\r\n");
-			dos.write(Utils.fileToBytes(filePath));
+			//dos.write(Utils.fileToBytes(filePath));
 			dos.writeBytes("\r\n");
 			dos.writeBytes("--" + BOUNDARY + "--\r\n");
 			dos.flush();
