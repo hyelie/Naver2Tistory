@@ -9,10 +9,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import convert.Scrapper;
-import convert.SupportType;
 import convert.blogPost.BlogPost;
 import convert.blogPost.ConvertedTreeNode;
+import convert.blogPost.StyleType;
+import convert.scrappers.Scrapper;
 import convert.scrappers.naver.sectionParsers.CodeParser;
 import convert.scrappers.naver.sectionParsers.DefaultParser;
 import convert.scrappers.naver.sectionParsers.HorizontalLineParser;
@@ -83,7 +83,7 @@ public class NaverScrapper extends Scrapper {
         parserMap.put("horizontalLine", new HorizontalLineParser());
         parserMap.put("oglink", new OglinkParser());
         parserMap.put(DEFAULT, new DefaultParser());
-        // Append other [naver blog section name to SupportType mapping] here
+        // Append other [naver blog section name to StyleType mapping] here
     }
 
     @Override
@@ -99,7 +99,7 @@ public class NaverScrapper extends Scrapper {
         Elements post = extractPost(document);
         String title = extractTitle(post);
         Element content = extractContent(post);
-        ConvertedTreeNode root = convertToTree(content);
+        ConvertedTreeNode root = parseToTree(content);
         
         return new BlogPost(title, root);
     }
@@ -128,8 +128,8 @@ public class NaverScrapper extends Scrapper {
         return mainContainer.first();
     }
 
-    private ConvertedTreeNode convertToTree(Element curElement){
-        ConvertedTreeNode rootNode = ConvertedTreeNode.builder().type(SupportType.NONE).build();
+    private ConvertedTreeNode parseToTree(Element curElement){
+        ConvertedTreeNode rootNode = ConvertedTreeNode.builder().type(StyleType.NONE).build();
 
         for(Element child : curElement.children()){
             Element sectionElement = child.child(0).child(0);
