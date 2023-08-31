@@ -75,20 +75,19 @@ public class HttpConnection {
 		}
 	}
 
-	// TODO : encode된 것을 바로 올리는 식으로.
 	/**
 	 * Connect to parameter 'targetURL' with type 'type', paramter 'parameter' with file in parameter 'filePath'.
 	 * 
 	 * @param targetURL - connecting url
 	 * @param type - HTTP type. (GET, POST, ...)
 	 * @param parameter - HTTP connection paramter
-	 * @param filePath - file path send to targetURL.
+	 * @param fileByte - file byte send to targetURL.
 	 * @return HTTPConnectionVO
 	 * @see HttpConnectionVO
 	 * @see HttpConnection#getResponse(HttpURLConnection)
 	 * @throws Exception when connection timeout, or refused, otherwise.
 	 */
-	public static HttpConnectionVO request(String targetUrl, String type, String parameter, String filePath) throws Exception {
+	public static HttpConnectionVO request(String targetUrl, String type, String parameter, byte[] fileByte) throws Exception {
 		HttpURLConnection con = null;
 		try {
 			URL url = new URL(targetUrl + "?" + parameter);
@@ -108,7 +107,7 @@ public class HttpConnection {
 			dos.writeBytes("--" + BOUNDARY + "\r\n");
 			dos.writeBytes("Content-Disposition: form-data;name=\"uploadedfile\";filename=\"1.jpg\"\r\n");
 			dos.writeBytes("\r\n");
-			//dos.write(Utils.fileToBytes(filePath));
+			dos.write(fileByte);
 			dos.writeBytes("\r\n");
 			dos.writeBytes("--" + BOUNDARY + "--\r\n");
 			dos.flush();

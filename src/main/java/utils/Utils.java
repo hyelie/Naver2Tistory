@@ -3,6 +3,7 @@ package utils;
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -149,5 +150,17 @@ public class Utils {
         string = string.replace(" ", "&nbsp;");
 
         return string;
+    }
+
+    /**
+     * Replace all chars to UTF-8.
+     */
+    public static String encodeToUTF8(String origin) throws Exception{
+        try{
+            return URLEncoder.encode(origin, "UTF-8");
+        }
+        catch (Exception e){
+            throw new Exception("인코딩 중 문제가 발생했습니다.");
+        }
     }
 }
