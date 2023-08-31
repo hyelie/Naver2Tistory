@@ -32,7 +32,7 @@ public class TistoryClient implements AuthClient {
 
         try{
             JSONParser parser = new JSONParser();
-            Reader reader = new FileReader(Utils.getCurrentDirectory() + "/tistory.json");
+            Reader reader = new FileReader(Utils.getCurrentDirectory() + "/config/tistory.json");
             JSONObject config = (JSONObject) parser.parse(reader);
             this.appId = (String) config.getOrDefault("APP_ID", null);
             this.secretKey = (String) config.getOrDefault("SECRET_KEY", null);
@@ -53,7 +53,7 @@ public class TistoryClient implements AuthClient {
         }
     }
 
-    private void authorize() throws Exception {
+    public void authorize() throws Exception {
         if (!isAccessTokenValid()) {
             openIssueCodeWindow();
             String accessToken = issueAccessToken();
@@ -84,7 +84,7 @@ public class TistoryClient implements AuthClient {
     private void openIssueCodeWindow() throws Exception{     
         String issueCodeUrl = "https://www.tistory.com/oauth/authorize?"
                             + "client_id=" + this.appId + "&"
-                            + "redirect_uri=http://" + this.blogName + ".tistory.com" + "&"
+                            + "redirect_uri=http://" + this.blogName + ".tistory.com/" + "&"
                             + "response_type=code";
 
         try{
@@ -111,7 +111,7 @@ public class TistoryClient implements AuthClient {
         String isCodeValidUrl = "https://www.tistory.com/oauth/access_token?"
                               + "client_id=" + this.appId + "&"
                               + "client_secret=" + this.secretKey + "&"
-                              + "redirect_uri=http://" + this.blogName + ".tistory.com" + "&"
+                              + "redirect_uri=http://" + this.blogName + ".tistory.com/" + "&"
                               + "code=" + this.code + "&"
                               + "grant_type=authorization_code";
 
@@ -130,7 +130,6 @@ public class TistoryClient implements AuthClient {
         }
     }
 
-    // TODO : tree 받으면 그거 고쳐서 올리는 식으로
     /**
      * Upload post in Tistory.
      * @see https://tistory.github.io/document-tistory-apis/apis/v1/post/write.html
@@ -154,18 +153,17 @@ public class TistoryClient implements AuthClient {
         }
     }
 
-    // TODO : 파일이 아니라, base64로 인코딩 된 것을 바로 올리는 식으로 바꾸기. tree에 base64로 인코딩 된 이미지가 있을 것임.
     /**
      * Upload image to Tistory server and get 'replacer' list.
      * @see https://tistory.github.io/document-tistory-apis/apis/v1/post/attach.html
      */
-    public String uploadImageAndGetReplacer(Integer imageNum) throws Exception{
+    public String uploadImageAndGetReplacer(byte[] imageByte) throws Exception{
         String postUrl = "https://www.tistory.com/apis/post/attach";
         String param = "access_token=" + this.accessToken + "&"
                      + "blogName=" + this.blogName + "&"
                      + "output=json";
         try{
-            HttpConnectionVO result = HttpConnection.request(postUrl, "POST", param, Utils.getImageDirectory() + String.valueOf(imageNum) + ".jpg");
+            HttpConnectionVO result = HttpConnection.request(postUrl, "POST", param, imageByte);
 
             if(result.getCode() == 200){
                 JSONParser jsonParser = new JSONParser();

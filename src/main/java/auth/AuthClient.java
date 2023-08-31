@@ -1,6 +1,12 @@
 package auth;
 
+// Implement this interface to post other types of blogs.
 public interface AuthClient {
+    /**
+     * Authorize to upload post
+     */
+    public void authorize() throws Exception;
+
     /**
      * Upload post in each blog.
      * @param title : post title
