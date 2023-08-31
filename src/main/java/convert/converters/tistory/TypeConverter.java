@@ -8,7 +8,6 @@ public interface TypeConverter {
     abstract public ConvertResultVO convertAndReturnNextNodes(ConvertedTreeNode node);
 
     public static String convertContent(String content){
-        content = Utils.escapeSpecials(content);
         return content.isEmpty() ? "&nbsp;" : content;
     }
 }

@@ -18,7 +18,7 @@ public class StrikeConverterTest {
     TypeConverter strikeConverter = new StrikeConverter();
 
     @Test
-    public void testCodeConverter() {
+    public void testStrikeConverter() {
         // given
         ConvertedTreeNode strikeNode = ConvertedTreeNode.builder().type(StyleType.STRIKE).build();
         ConvertedTreeNode tiltNode = ConvertedTreeNode.builder().type(StyleType.TILT).build();
@@ -30,12 +30,28 @@ public class StrikeConverterTest {
         ConvertResultVO convertResultVO = strikeConverter.convertAndReturnNextNodes(strikeNode);
 
         // then
-        String strikeHtml =
-        "<strike></strike>";
+        String strikeHtml = "<strike></strike>";
         Document doc = Jsoup.parse(strikeHtml);
         Element strikeElement = doc.body().child(0);
 
         assertEquals(strikeElement.outerHtml(), convertResultVO.getResult().outerHtml());
         NodeTestUtils.assertNodeListEquals(strikeNode.getChilds(), convertResultVO.getNextNodes());
+    }
+
+    @Test
+    public void testLeafStrikeConverter() {
+        // given
+        ConvertedTreeNode strikeLeafNode = ConvertedTreeNode.builder().type(StyleType.STRIKE).content("strike leaf 테스트").build();
+
+        // when
+        ConvertResultVO convertResultVO = strikeConverter.convertAndReturnNextNodes(strikeLeafNode);
+
+        // then
+        String strikeHtml = "<strike>strike leaf 테스트</strike>";
+        Document doc = Jsoup.parse(strikeHtml);
+        Element strikeElement = doc.body().child(0);
+
+        assertEquals(strikeElement.outerHtml(), convertResultVO.getResult().outerHtml());
+        NodeTestUtils.assertNodeListEquals(strikeLeafNode.getChilds(), convertResultVO.getNextNodes());
     }
 }

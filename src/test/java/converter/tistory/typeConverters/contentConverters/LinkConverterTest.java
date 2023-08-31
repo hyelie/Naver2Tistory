@@ -20,7 +20,7 @@ public class LinkConverterTest {
     TypeConverter linkConverter = new LinkConverter();
 
     @Test
-    public void testCodeConverter() {
+    public void testLinkConverter() {
         // given
         ConvertedTreeNode linkNode = ConvertedTreeNode.builder().type(StyleType.LINK).content("https://hyelie.com").build();
         ConvertedTreeNode tiltNode = ConvertedTreeNode.builder().type(StyleType.TILT).build();

@@ -18,7 +18,7 @@ public class HorizontalLineConverterTest {
     TypeConverter horizontalLineConverter = new HorizontalLineConverter();
 
     @Test
-    public void testTableConverter() {
+    public void testHoriaonztalLineConverter() {
         // given
         ConvertedTreeNode horizontalNode = ConvertedTreeNode.builder().type(StyleType.HORIZONTALLINE).build();
         ConvertedTreeNode childNode1 = ConvertedTreeNode.builder().type(StyleType.NONE).build();

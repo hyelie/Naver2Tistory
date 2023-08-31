@@ -18,7 +18,7 @@ public class UnderbarConverterTest {
     TypeConverter underbarConverter = new UnderbarConverter();
 
     @Test
-    public void testCodeConverter() {
+    public void testUnderbarConverter() {
         // given
         ConvertedTreeNode underbarNode = ConvertedTreeNode.builder().type(StyleType.UNDERBAR).build();
         ConvertedTreeNode tiltNode = ConvertedTreeNode.builder().type(StyleType.TILT).build();
@@ -36,5 +36,22 @@ public class UnderbarConverterTest {
 
         assertEquals(underbarElement.outerHtml(), convertResultVO.getResult().outerHtml());
         NodeTestUtils.assertNodeListEquals(underbarNode.getChilds(), convertResultVO.getNextNodes());
+    }
+
+    @Test
+    public void testLeafUnderbarConverter() {
+        // given
+        ConvertedTreeNode underbarLeafNode = ConvertedTreeNode.builder().type(StyleType.TILT).content("underbar leaf 테스트").build();
+
+        // when
+        ConvertResultVO convertResultVO = underbarConverter.convertAndReturnNextNodes(underbarLeafNode);
+
+        // then
+        String underbarHtml = "<u>underbar leaf 테스트</u>";
+        Document doc = Jsoup.parse(underbarHtml);
+        Element underbarElement = doc.body().child(0);
+
+        assertEquals(underbarElement.outerHtml(), convertResultVO.getResult().outerHtml());
+        NodeTestUtils.assertNodeListEquals(underbarLeafNode.getChilds(), convertResultVO.getNextNodes());
     }
 }

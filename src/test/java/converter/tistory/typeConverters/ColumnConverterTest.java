@@ -15,7 +15,7 @@ public class ColumnConverterTest {
     TypeConverter columnConverter = new ColumnConverter();
 
     @Test
-    public void testTableConverter() {
+    public void testColumnConverter() {
         // given
         ConvertedTreeNode colNode = ConvertedTreeNode.builder().type(StyleType.COLUMN).build();
         ConvertedTreeNode childNode1 = ConvertedTreeNode.builder().type(StyleType.NONE).build();

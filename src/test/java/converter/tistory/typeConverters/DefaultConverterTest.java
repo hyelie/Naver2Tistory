@@ -16,7 +16,7 @@ public class DefaultConverterTest {
     TypeConverter defaulConverter = new DefaultConverter();
 
     @Test
-    public void testTableConverter() {
+    public void testDefaultConverter() {
         // given
         ConvertedTreeNode defaultNode = ConvertedTreeNode.builder().type(StyleType.NONE).build();
         ConvertedTreeNode childNode1 = ConvertedTreeNode.builder().type(StyleType.NONE).build();

@@ -18,7 +18,7 @@ public class BoldConverterTest {
     TypeConverter boldConverter = new BoldConverter();
 
     @Test
-    public void testCodeConverter() {
+    public void testBoldConverter() {
         // given
         ConvertedTreeNode boldNode = ConvertedTreeNode.builder().type(StyleType.BOLD).build();
         ConvertedTreeNode tiltNode = ConvertedTreeNode.builder().type(StyleType.TILT).build();
@@ -30,12 +30,28 @@ public class BoldConverterTest {
         ConvertResultVO convertResultVO = boldConverter.convertAndReturnNextNodes(boldNode);
 
         // then
-        String codeHtml =
-        "<b></b>";
+        String codeHtml = "<b></b>";
         Document doc = Jsoup.parse(codeHtml);
         Element boldElement = doc.body().child(0);
 
         assertEquals(boldElement.outerHtml(), convertResultVO.getResult().outerHtml());
         NodeTestUtils.assertNodeListEquals(boldNode.getChilds(), convertResultVO.getNextNodes());
+    }
+
+    @Test
+    public void testLeafBoldConverter() {
+        // given
+        ConvertedTreeNode boldLeafNode = ConvertedTreeNode.builder().type(StyleType.BOLD).content("bold leaf 테스트").build();
+
+        // when
+        ConvertResultVO convertResultVO = boldConverter.convertAndReturnNextNodes(boldLeafNode);
+
+        // then
+        String boldHtml = "<b>bold leaf 테스트</b>";
+        Document doc = Jsoup.parse(boldHtml);
+        Element boldElement = doc.body().child(0);
+
+        assertEquals(boldElement.outerHtml(), convertResultVO.getResult().outerHtml());
+        NodeTestUtils.assertNodeListEquals(boldLeafNode.getChilds(), convertResultVO.getNextNodes());
     }
 }
