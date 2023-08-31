@@ -5,15 +5,13 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
 import java.util.List;
 import java.util.Scanner;
 
@@ -109,6 +107,20 @@ public class Utils {
 			if (in != null) in.close();
 			if (out != null) out.close();
 		}
+    }
+
+    /**
+     * Encode byte[] data to base 64.
+     */
+    public static String encodeByteToBase64(byte[] data){
+        return Base64.getEncoder().encodeToString(data);
+    }
+
+    /**
+     * Decode base64 string to byte[].
+     */
+    public static byte[] decodeBase64ToByte(String data){
+        return Base64.getDecoder().decode(data);
     }
 
     /**

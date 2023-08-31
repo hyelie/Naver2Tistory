@@ -348,7 +348,7 @@ public class NaverScrapperTest {
         /*
         root child idx 13
         --IMAGE, 
-        ----IMAGEBYTE
+        ----IMAGEBASE64
         ----CAPTION, 
         ------TEXT, 
         --------PARAGRAPH_DEFAULT, 
@@ -360,7 +360,7 @@ public class NaverScrapperTest {
         ConvertedTreeNode imagebyteNode = imageNode.getChilds().get(0);
         String imageUrl = "https://blogpfthumb-phinf.pstatic.net/20120504_73/jhi990823_1336138420833_S02En4_jpg/wallpaper-33614.jpg";
         String imageByte = new String(Utils.downloadByteImage(imageUrl));
-        NodeTestUtils.assertNodeTypeAndContent(imagebyteNode, StyleType.IMAGEBYTE, imageByte);
+        NodeTestUtils.assertNodeTypeAndContent(imagebyteNode, StyleType.IMAGEBASE64, imageByte);
 
         ConvertedTreeNode captionNode = imageNode.getChilds().get(1);
         NodeTestUtils.assertNodeTypeAndContent(captionNode, StyleType.CAPTION, "");
@@ -374,7 +374,7 @@ public class NaverScrapperTest {
         /*
         root child idx 14
         --IMAGE, 
-        ----IMAGEBYTE
+        ----IMAGEBASE64
         */
         ConvertedTreeNode root = validPost.getRoot();
         ConvertedTreeNode imageNode = root.getChilds().get(14);
@@ -382,7 +382,7 @@ public class NaverScrapperTest {
         ConvertedTreeNode imagebyteNode = imageNode.getChilds().get(0);
         String imageUrl = "https://blogpfthumb-phinf.pstatic.net/20120504_73/jhi990823_1336138420833_S02En4_jpg/wallpaper-33614.jpg";
         String imageByte = new String(Utils.downloadByteImage(imageUrl));
-        NodeTestUtils.assertNodeTypeAndContent(imagebyteNode, StyleType.IMAGEBYTE, imageByte);
+        NodeTestUtils.assertNodeTypeAndContent(imagebyteNode, StyleType.IMAGEBASE64, imageByte);
 
         ConvertedTreeNode captionNode = imageNode.getChilds().get(1);
     }
@@ -391,7 +391,7 @@ public class NaverScrapperTest {
     private static void print(ConvertedTreeNode node, int depth){
         String result = "";
         for(int i = 0; i<depth; i++) result += "--";
-        if(node.getType() == StyleType.IMAGEBYTE) result += node.getType();
+        if(node.getType() == StyleType.IMAGEBASE64) result += node.getType();
         else result += node.getType() + ", " + node.getContent();
         System.out.println(result);
 

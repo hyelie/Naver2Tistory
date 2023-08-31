@@ -40,7 +40,7 @@ public class ImageParserTest {
 
         ConvertedTreeNode imageByteNode = imageNode.getChilds().get(0);
         assertNotNull(imageByteNode);
-        assertEquals(StyleType.IMAGEBYTE, imageByteNode.getType());
+        assertEquals(StyleType.IMAGEBASE64, imageByteNode.getType());
 
         ConvertedTreeNode captionNode = imageNode.getChilds().get(1);
         NodeTestUtils.assertNodeTypeAndContent(captionNode, StyleType.CAPTION, "");
@@ -71,7 +71,7 @@ public class ImageParserTest {
 
         ConvertedTreeNode imageByteNode = result.getChilds().get(0);
         assertNotNull(imageByteNode);
-        assertEquals(StyleType.IMAGEBYTE, imageByteNode.getType());
+        assertEquals(StyleType.IMAGEBASE64, imageByteNode.getType());
 
         ConvertedTreeNode captionNode = result.getChilds().get(1);
         NodeTestUtils.assertNodeTypeAndContent(captionNode, StyleType.CAPTION, "");

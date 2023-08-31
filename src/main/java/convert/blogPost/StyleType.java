@@ -20,7 +20,7 @@ public enum StyleType {
                 STRIKE,
     CODE,
     IMAGE,
-        IMAGEBYTE,
+        IMAGEBASE64,
         CAPTION,
     HORIZONTALLINE,
     NONE;

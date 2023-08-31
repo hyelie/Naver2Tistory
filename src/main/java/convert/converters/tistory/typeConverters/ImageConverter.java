@@ -19,7 +19,7 @@ public class ImageConverter implements TypeConverter {
         /*
         imageNode의 구조
         --IMAGE, 
-        ----IMAGEBYTE
+        ----IMAGEBASE64
         [----CAPTION, 
         ------TEXT, 
         --------PARAGRAPH_DEFAULT, 
@@ -40,8 +40,9 @@ public class ImageConverter implements TypeConverter {
     }
 
     private String uploadImageAndGetReplacer(String imageContent){
+        byte[] imageByte = Utils.decodeBase64ToByte(imageContent);
         try{
-            return tistoryClient.uploadImageAndGetReplacer(imageContent.getBytes());
+            return tistoryClient.uploadImageAndGetReplacer(imageByte);
         }
         catch (Exception e){
             System.out.println("[티스토리 이미지 업로드 중 오류] : 해당 이미지를 올리지 않고 다음 작업을 진행합니다.");
