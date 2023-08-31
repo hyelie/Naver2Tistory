@@ -30,7 +30,7 @@ public class ImageConverter implements TypeConverter {
         
         if(hasCaption(imageNode)){
             ConvertedTreeNode captionNode = imageNode.getChilds().get(1);
-            String caption = "\"caption\": \"" + getCaption(captionNode) + "\"";
+            String caption = getCaption(captionNode);
             replacer = insertCaptionIntoReplacer(replacer, caption);
         }
 
@@ -55,7 +55,7 @@ public class ImageConverter implements TypeConverter {
     }
 
     private String getCaption(ConvertedTreeNode node){
-        String result = "";
+        String result = node.getContent();
         for(ConvertedTreeNode child : node.getChilds()){
             result += getCaption(child);
         }
@@ -63,7 +63,7 @@ public class ImageConverter implements TypeConverter {
     }
 
     private String insertCaptionIntoReplacer(String replacer, String caption){
-        Integer captionIndex = Utils.findNthString(replacer, caption, 4);
+        Integer captionIndex = Utils.findNthString(replacer, "|", 4);
         if(isInsertable(captionIndex)){
             replacer = Utils.insert(replacer, captionIndex+1, caption);
         }
