@@ -10,7 +10,9 @@ public class CodeConverter implements TypeConverter {
     @Override
     public ConvertResultVO convertAndReturnNextNodes(ConvertedTreeNode codeNode) {
         Element preElement = createPreElement();
+
         Element codeElement = createCodeElement();
+        codeElement.text(codeNode.getContent());
         preElement.appendChild(codeElement);
 
         return new ConvertResultVO(preElement);

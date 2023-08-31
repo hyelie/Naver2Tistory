@@ -22,7 +22,7 @@ public class CodeConverterTest {
     @Test
     public void testCodeConverter() {
         // given
-        ConvertedTreeNode codeNode = ConvertedTreeNode.builder().type(StyleType.CODE).build();
+        ConvertedTreeNode codeNode = ConvertedTreeNode.builder().type(StyleType.CODE).content("code test <>& \n").build();
         ConvertedTreeNode childNode1 = ConvertedTreeNode.builder().type(StyleType.NONE).build();
         codeNode.appendChild(childNode1);
         ConvertedTreeNode childNode2 = ConvertedTreeNode.builder().type(StyleType.ROW).build();
@@ -34,7 +34,9 @@ public class CodeConverterTest {
         // then
         String codeHtml =
         "<pre class=\"bash\" data-ke-language=\"bash\" data-ke-type=\"codeblock\">" + 
-            "<code></code>" + 
+            "<code>" +
+                "code test <>& \n" + 
+            "</code>" + 
         "</pre>";
         Document doc = Jsoup.parse(codeHtml);
         Element codeElement = doc.body().child(0);
