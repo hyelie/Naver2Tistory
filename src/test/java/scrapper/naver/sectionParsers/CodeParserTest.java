@@ -16,6 +16,7 @@ public class CodeParserTest {
 
     @Test
     public void testCodeParser() throws Exception {
+        // given
         String codeHtml =
         "<div class=\"se-section se-section-code se-l-code_black\">" +
             "<div class=\"se-module se-module-code se-fs-fs13\">" + 
@@ -29,6 +30,7 @@ public class CodeParserTest {
         Document doc = Jsoup.parse(codeHtml);
         Element codeElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode codeNode = codeParser.parseToTreeNode(codeElement);
 
         NodeTestUtils.assertNodeTypeAndContent(codeNode, StyleType.CODE, "source code... 1 source code... 2 source code... 3 source code... 4");

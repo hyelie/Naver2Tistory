@@ -16,6 +16,7 @@ public class TableParserTest {
 
     @Test
     public void testTableParser() throws Exception {
+        // given
         String tableHtml =
         "<div class=\"se-section se-section-table se-l-default se-section-align-\" style=\"width: 100%;\">" + 
             "<div class=\"se-table-container\">" + 
@@ -45,7 +46,10 @@ public class TableParserTest {
         Document doc = Jsoup.parse(tableHtml);
         Element tableElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode tableNode = tableParser.parseToTreeNode(tableElement);
+
+        // then
         NodeTestUtils.assertNodeTypeAndContent(tableNode, StyleType.TABLE, "");
 
         // row 1

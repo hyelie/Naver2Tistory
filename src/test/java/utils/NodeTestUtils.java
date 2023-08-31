@@ -5,33 +5,39 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import org.jsoup.nodes.Element;
+
 import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
 
 public class NodeTestUtils {
-    public static void assertNodeTypeAndContent(ConvertedTreeNode origin, StyleType expectedType, String expectedContent){
-        assertNotNull(origin);
-        assertEquals(expectedType, origin.getType());
-        assertEquals(expectedContent, origin.getContent());
+    public static void assertNodeTypeAndContent(ConvertedTreeNode actual, StyleType expectedType, String expectedContent){
+        assertNotNull(actual);
+        assertEquals(expectedType, actual.getType());
+        assertEquals(expectedContent, actual.getContent());
     }
 
-    public static void assertNodeListEquals(List<ConvertedTreeNode> expected, List<ConvertedTreeNode> origin){
+    public static void assertNodeListEquals(List<ConvertedTreeNode> expected, List<ConvertedTreeNode> actual){
         assertNotNull(expected);
-        assertNotNull(origin);
+        assertNotNull(actual);
 
-        assertEquals(expected.size(), origin.size());
+        assertEquals(expected.size(), actual.size());
 
         int len = expected.size();
         for(int i = 0; i<len; i++){
-            assertEquals(expected.get(i), origin.get(i));
+            assertNodeEquals(expected.get(i), actual.get(i));
         }
     }
 
-    public static void assertNodeEquals(ConvertedTreeNode expected, ConvertedTreeNode origin){
+    public static void assertNodeEquals(ConvertedTreeNode expected, ConvertedTreeNode actual){
         assertNotNull(expected);
-        assertNotNull(origin);
-        assertEquals(expected.getType(), origin.getType());
-        assertEquals(expected.getContent(), origin.getContent());
-        assertNodeListEquals(expected.getChilds(), origin.getChilds());
+        assertNotNull(actual);
+        assertEquals(expected.getType(), actual.getType());
+        assertEquals(expected.getContent(), actual.getContent());
+        assertNodeListEquals(expected.getChilds(), actual.getChilds());
+    }
+
+    public static void assertElementEquals(Element expected, Element actual){
+        assertEquals(expected.outerHtml(), actual.outerHtml());
     }
 }

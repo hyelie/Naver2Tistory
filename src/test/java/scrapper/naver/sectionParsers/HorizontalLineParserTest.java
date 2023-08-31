@@ -16,6 +16,7 @@ public class HorizontalLineParserTest {
 
     @Test
     public void testHorizontalLineParser() throws Exception {
+        // given
         String horizontalLineHtml =
         "<div class=\"se-section se-section-horizontalLine se-l-default se-section-align-\">" + 
             "<div class=\"se-module se-module-horizontalLine\">" + 
@@ -25,6 +26,7 @@ public class HorizontalLineParserTest {
         Document doc = Jsoup.parse(horizontalLineHtml);
         Element horizontalLineElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode horizontalNode = horizontalLineParser.parseToTreeNode(horizontalLineElement);
 
         NodeTestUtils.assertNodeTypeAndContent(horizontalNode, StyleType.HORIZONTALLINE, "");

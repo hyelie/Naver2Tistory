@@ -19,6 +19,7 @@ public class ImageParserTest {
 
     @Test
     public void testImageParserWithCaption() throws Exception {
+        // given
         String imageWithCaptionHtml =
         "<div class=\"se-section se-section-image se-l-default se-section-align-\">" + 
                 "<div class=\"se-module se-module-image\" style=\"\">" + 
@@ -31,7 +32,10 @@ public class ImageParserTest {
         Document doc = Jsoup.parse(imageWithCaptionHtml);
         Element imageWithCaptionElement = doc.body().child(0);
 
+        //when
         ConvertedTreeNode imageNode = imageParser.parseToTreeNode(imageWithCaptionElement);
+
+        // then
         NodeTestUtils.assertNodeTypeAndContent(imageNode, StyleType.IMAGE, "");
 
         ConvertedTreeNode imageByteNode = imageNode.getChilds().get(0);
@@ -47,6 +51,7 @@ public class ImageParserTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testImageParserWithoutCaption() throws Exception {
+        // given
         String imageWithCaptionHtml =
         "<div class=\"se-section se-section-image se-l-default se-section-align-\">" + 
                 "<div class=\"se-module se-module-image\" style=\"\">" + 
@@ -58,7 +63,10 @@ public class ImageParserTest {
         Document doc = Jsoup.parse(imageWithCaptionHtml);
         Element imageWithCaptionElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode result = imageParser.parseToTreeNode(imageWithCaptionElement);
+
+        // then
         NodeTestUtils.assertNodeTypeAndContent(result, StyleType.IMAGE, "");
 
         ConvertedTreeNode imageByteNode = result.getChilds().get(0);

@@ -16,6 +16,7 @@ public class DefaultParserTest {
 
     @Test
     public void testDefaultParser() throws Exception {
+        // given
         String defaultHtml =
         "<div class=\"se-section se-section-text se-l-default\">" + 
             "<div class=\"se-module se-module-text\">" + 
@@ -27,6 +28,7 @@ public class DefaultParserTest {
         Document doc = Jsoup.parse(defaultHtml);
         Element defaultElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode defaultNode = defaultParser.parseToTreeNode(defaultElement);
 
         NodeTestUtils.assertNodeTypeAndContent(defaultNode, StyleType.NONE, "저화질 이미지");

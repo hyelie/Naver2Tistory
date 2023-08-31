@@ -16,6 +16,7 @@ public class OglinkParserTest {
 
     @Test
     public void testOglinkParser() throws Exception {
+        // given
         String oglinkHtml =
         "<div class=\"se-section se-section-oglink se-l-large_image se-section-align-\">" + 
             "<div class=\"se-module se-module-oglink\">" + 
@@ -32,6 +33,7 @@ public class OglinkParserTest {
         Document doc = Jsoup.parse(oglinkHtml);
         Element oglinkElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode oglinkNode = oglinkParser.parseToTreeNode(oglinkElement);
 
         NodeTestUtils.assertNodeTypeAndContent(oglinkNode, StyleType.NONE, "");

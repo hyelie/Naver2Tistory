@@ -16,6 +16,7 @@ public class TextParserTest {
 
     @Test
     public void testNestedText() throws Exception {
+        // given
         String nestedTextHtml =
         "<div class=\"se-section se-section-text se-l-default\">" + 
             "<div class=\"se-module se-module-text\">" + 
@@ -25,7 +26,10 @@ public class TextParserTest {
         Document doc = Jsoup.parse(nestedTextHtml);
         Element nestedTextElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode textNode = textParser.parseToTreeNode(nestedTextElement);
+
+        // then
         NodeTestUtils.assertNodeTypeAndContent(textNode, StyleType.TEXT, "");
 
         ConvertedTreeNode paragraphNode = textNode.getChilds().get(0);
@@ -49,6 +53,7 @@ public class TextParserTest {
 
     @Test
     public void testSeparatedText() throws Exception {
+        // given
         String nestedTextHtml =
         "<div class=\"se-section se-section-text se-l-default\">" + 
             "<div class=\"se-module se-module-text\">" + 
@@ -58,7 +63,10 @@ public class TextParserTest {
         Document doc = Jsoup.parse(nestedTextHtml);
         Element separatedTextElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode textNode = textParser.parseToTreeNode(separatedTextElement);
+
+        // then
         NodeTestUtils.assertNodeTypeAndContent(textNode, StyleType.TEXT, "");
 
         ConvertedTreeNode paragraphNode = textNode.getChilds().get(0);

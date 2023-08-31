@@ -17,22 +17,39 @@ public class UrlProcessorTest {
 
     @Test
     public void testNaverUrlType() throws Exception{
-        assertEquals(UrlType.NAVER, urlProcessor.process(naverProcessedUrl1).getUrlType());
-        assertEquals(UrlType.NAVER, urlProcessor.process(naverProcessedUrl2).getUrlType());
-        assertEquals(UrlType.NAVER, urlProcessor.process(naverRawUrl1).getUrlType());
-        assertEquals(UrlType.NAVER, urlProcessor.process(naverRawUrl2).getUrlType());
+        // when
+        UrlType naverProcessedUrl1Type = urlProcessor.process(naverProcessedUrl1).getUrlType();
+        UrlType naverProcessedUrl2Type = urlProcessor.process(naverProcessedUrl2).getUrlType();
+        UrlType naverRawUrl1Type = urlProcessor.process(naverRawUrl1).getUrlType();
+        UrlType naverRawUrl2Type = urlProcessor.process(naverRawUrl2).getUrlType();
+
+        // then
+        assertEquals(UrlType.NAVER, naverProcessedUrl1Type);
+        assertEquals(UrlType.NAVER, naverProcessedUrl2Type);
+        assertEquals(UrlType.NAVER, naverRawUrl1Type);
+        assertEquals(UrlType.NAVER, naverRawUrl2Type);
     }
     
     @Test
     public void testNaverRawUrl() throws Exception {
-        assertEquals(naverProcessedUrl1, urlProcessor.process(naverRawUrl1).getUrl());
-        assertEquals(naverProcessedUrl1, urlProcessor.process(naverRawUrl2).getUrl());
+        // when
+        String processedNaverRawUrl1 = urlProcessor.process(naverRawUrl1).getUrl();
+        String processedNaverRawUrl2 = urlProcessor.process(naverRawUrl2).getUrl();
+
+        // then
+        assertEquals(naverProcessedUrl1, processedNaverRawUrl1);
+        assertEquals(naverProcessedUrl1, processedNaverRawUrl2);
     }
 
     @Test
     public void testNaverProcessedUrl() throws Exception {
-        assertEquals(naverProcessedUrl1, urlProcessor.process(naverProcessedUrl1).getUrl());
-        assertEquals(naverProcessedUrl2, urlProcessor.process(naverProcessedUrl2).getUrl());
+        // when
+        String processedNaverProcessedUrl1 = urlProcessor.process(naverProcessedUrl1).getUrl();
+        String processedNaverProcessedUrl2 = urlProcessor.process(naverProcessedUrl2).getUrl();
+
+        // then
+        assertEquals(naverProcessedUrl1, processedNaverProcessedUrl1);
+        assertEquals(naverProcessedUrl2, processedNaverProcessedUrl2);
     }
 
     @Test(expected = Exception.class)

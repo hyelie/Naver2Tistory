@@ -43,14 +43,23 @@ public class NaverUrlProcessorTest {
 
     @Test
     public void testProcessRawPattern() throws Exception {
-        assertEquals(processedPattern1, naverUrlProcessor.process(rawPattern1));
-        assertEquals(processedPattern1, naverUrlProcessor.process(rawPattern2));
+        // when
+        String processedRawPattern1 = naverUrlProcessor.process(rawPattern1);
+        String processedRawPattern2 = naverUrlProcessor.process(rawPattern2);
+
+        // then
+        assertEquals(processedPattern1, processedRawPattern1);
+        assertEquals(processedPattern1, processedRawPattern2);
     }
 
     @Test
     public void testProcessProcessedPattern() throws Exception {
-        assertEquals(processedPattern1, naverUrlProcessor.process(processedPattern1));
-        assertEquals(processedPattern2, naverUrlProcessor.process(processedPattern2));
+        // when
+        String processedProcessedPattern1 = naverUrlProcessor.process(processedPattern1);
+        String processedProcessedPattern2 = naverUrlProcessor.process(processedPattern2);
+
+        assertEquals(processedPattern1, processedProcessedPattern1);
+        assertEquals(processedPattern2, processedProcessedPattern2);
     }    
 
     @Test(expected = Exception.class)

@@ -16,6 +16,7 @@ public class QuotationParserTest {
 
     @Test
     public void testQuotationParser() throws Exception {
+        // given
         String quotationHtml =
         "<div class=\"se-section se-section-quotation se-l-default\">" + 
             "<blockquote class=\"se-quotation-container\">" + 
@@ -27,7 +28,10 @@ public class QuotationParserTest {
         Document doc = Jsoup.parse(quotationHtml);
         Element quotationElement = doc.body().child(0);
 
+        // when
         ConvertedTreeNode quotationNode = quotationParser.parseToTreeNode(quotationElement);
+
+        // then
         NodeTestUtils.assertNodeTypeAndContent(quotationNode, StyleType.QUOTATION, "");
 
         ConvertedTreeNode quoteNode = quotationNode.getChilds().get(0);

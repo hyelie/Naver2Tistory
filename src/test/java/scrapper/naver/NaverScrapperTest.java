@@ -20,7 +20,10 @@ public class NaverScrapperTest {
 
     @Before
     public void setup() throws Exception {
+        // given
         String testUrl = "https://blog.naver.com/PostView.naver?blogId=jhi990823&logNo=222848946417";
+
+        // when
         validPost = naverScrapper.scrap(testUrl);
     }
 
