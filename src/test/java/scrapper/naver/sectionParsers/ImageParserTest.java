@@ -12,7 +12,7 @@ import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
 import convert.scrappers.naver.SectionParser;
 import convert.scrappers.naver.sectionParsers.ImageParser;
-import scrapper.naver.NodeTestUtils;
+import utils.NodeTestUtils;
 
 public class ImageParserTest {
     SectionParser imageParser = new ImageParser();

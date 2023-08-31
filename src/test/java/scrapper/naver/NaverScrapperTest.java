@@ -6,6 +6,7 @@ import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
 import convert.scrappers.Scrapper;
 import convert.scrappers.naver.NaverScrapper;
+import utils.NodeTestUtils;
 import utils.Utils;
 
 import static org.junit.Assert.assertEquals;

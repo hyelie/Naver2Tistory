@@ -9,7 +9,7 @@ import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
 import convert.scrappers.naver.SectionParser;
 import convert.scrappers.naver.sectionParsers.TextParser;
-import scrapper.naver.NodeTestUtils;
+import utils.NodeTestUtils;
 
 public class TextParserTest {
     SectionParser textParser = new TextParser();

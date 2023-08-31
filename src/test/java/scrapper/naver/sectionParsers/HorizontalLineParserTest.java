@@ -9,7 +9,7 @@ import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
 import convert.scrappers.naver.SectionParser;
 import convert.scrappers.naver.sectionParsers.HorizontalLineParser;
-import scrapper.naver.NodeTestUtils;
+import utils.NodeTestUtils;
 
 public class HorizontalLineParserTest {
     SectionParser horizontalLineParser = new HorizontalLineParser();

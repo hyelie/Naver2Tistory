@@ -9,7 +9,7 @@ import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
 import convert.scrappers.naver.SectionParser;
 import convert.scrappers.naver.sectionParsers.TableParser;
-import scrapper.naver.NodeTestUtils;
+import utils.NodeTestUtils;
 
 public class TableParserTest {
     SectionParser tableParser = new TableParser();
