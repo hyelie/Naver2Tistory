@@ -29,7 +29,7 @@ public abstract class SectionParser {
         styleMap.put("a", StyleType.LINK);
         styleMap.put("b", StyleType.BOLD);
         styleMap.put("i", StyleType.TILT);
-        styleMap.put("u", StyleType.UNDERBAR);
+        styleMap.put("u", StyleType.UNDERLINE);
         styleMap.put("strike", StyleType.STRIKE);
         // Append other [naver blog style to StyleType mapping] here
     }

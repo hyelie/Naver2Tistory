@@ -65,8 +65,8 @@ public class TableParserTest {
         NodeTestUtils.assertNodeTypeAndContent(colNode2, StyleType.COLUMN, "");
         contentNode = colNode2.getChilds().get(0).getChilds().get(0).getChilds().get(0);
         NodeTestUtils.assertNodeTypeAndContent(contentNode, StyleType.CONTENT, "");
-        ConvertedTreeNode underbarNode = contentNode.getChilds().get(0);
-        NodeTestUtils.assertNodeTypeAndContent(underbarNode, StyleType.UNDERBAR, "0, 1");
+        ConvertedTreeNode UnderlineNode = contentNode.getChilds().get(0);
+        NodeTestUtils.assertNodeTypeAndContent(UnderlineNode, StyleType.UNDERLINE, "0, 1");
 
         ConvertedTreeNode colNode3 = rowNode1.getChilds().get(2);
         NodeTestUtils.assertNodeTypeAndContent(colNode3, StyleType.COLUMN, "");

@@ -41,10 +41,10 @@ public class TextParserTest {
         ConvertedTreeNode strikeNode = contentNode.getChilds().get(0);
         NodeTestUtils.assertNodeTypeAndContent(strikeNode, StyleType.STRIKE, "");
 
-        ConvertedTreeNode underbarNode = strikeNode.getChilds().get(0);
-        NodeTestUtils.assertNodeTypeAndContent(underbarNode, StyleType.UNDERBAR, "");
+        ConvertedTreeNode UnderlineNode = strikeNode.getChilds().get(0);
+        NodeTestUtils.assertNodeTypeAndContent(UnderlineNode, StyleType.UNDERLINE, "");
 
-        ConvertedTreeNode tiltNode = underbarNode.getChilds().get(0);
+        ConvertedTreeNode tiltNode = UnderlineNode.getChilds().get(0);
         NodeTestUtils.assertNodeTypeAndContent(tiltNode, StyleType.TILT, "");
 
         ConvertedTreeNode boldNode = tiltNode.getChilds().get(0);
@@ -85,8 +85,8 @@ public class TextParserTest {
 
         ConvertedTreeNode childNode3 = paragraphNode.getChilds().get(3);
         NodeTestUtils.assertNodeTypeAndContent(childNode3, StyleType.CONTENT, "");
-        ConvertedTreeNode underbarNode3 = childNode3.getChilds().get(0);
-        NodeTestUtils.assertNodeTypeAndContent(underbarNode3, StyleType.UNDERBAR, "대제목 제목");
+        ConvertedTreeNode UnderlineNode3 = childNode3.getChilds().get(0);
+        NodeTestUtils.assertNodeTypeAndContent(UnderlineNode3, StyleType.UNDERLINE, "대제목 제목");
 
         ConvertedTreeNode childNode4 = paragraphNode.getChilds().get(4);
         NodeTestUtils.assertNodeTypeAndContent(childNode4, StyleType.CONTENT, "1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목");

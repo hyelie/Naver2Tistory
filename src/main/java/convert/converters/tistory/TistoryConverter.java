@@ -39,7 +39,7 @@ public class TistoryConverter implements Converter {
         converterMap.put(StyleType.LINK, new LinkConverter());
         converterMap.put(StyleType.BOLD, new BoldConverter());
         converterMap.put(StyleType.TILT, new TiltConverter());
-        converterMap.put(StyleType.UNDERBAR, new UnderbarConverter());
+        converterMap.put(StyleType.UNDERLINE, new UnderlineConverter());
         converterMap.put(StyleType.STRIKE, new StrikeConverter());
         
         converterMap.put(StyleType.CODE, new CodeConverter());
@@ -52,9 +52,9 @@ public class TistoryConverter implements Converter {
     @Override
     public String convert(ConvertedTreeNode root) {
         Element convertedElement = traverseAndConvert(root);
-        return convertedElement.outerHtml();
+        //return convertedElement.outerHtml();
         
-        //return encodeToUTF8(convertedElement.outerHtml());
+        return encodeToUTF8(convertedElement.outerHtml());
     }
 
     private Element traverseAndConvert(ConvertedTreeNode curNode){

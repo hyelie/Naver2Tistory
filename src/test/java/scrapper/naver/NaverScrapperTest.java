@@ -65,7 +65,7 @@ public class NaverScrapperTest {
         ----PARAGRAPH_DEFAULT, 
         ------CONTENT, 
         --------STRIKE, 
-        ----------UNDERBAR, 
+        ----------UNDERLINE, 
         ------------TILT, 
         --------------BOLD, 대제목1 제목1
         */
@@ -82,10 +82,10 @@ public class NaverScrapperTest {
         ConvertedTreeNode strikeNode = contentNode.getChilds().get(0);
         NodeTestUtils.assertNodeTypeAndContent(strikeNode, StyleType.STRIKE, "");
 
-        ConvertedTreeNode underbarNode = strikeNode.getChilds().get(0);
-        NodeTestUtils.assertNodeTypeAndContent(underbarNode, StyleType.UNDERBAR, "");
+        ConvertedTreeNode UnderlineNode = strikeNode.getChilds().get(0);
+        NodeTestUtils.assertNodeTypeAndContent(UnderlineNode, StyleType.UNDERLINE, "");
 
-        ConvertedTreeNode tiltNode = underbarNode.getChilds().get(0);
+        ConvertedTreeNode tiltNode = UnderlineNode.getChilds().get(0);
         NodeTestUtils.assertNodeTypeAndContent(tiltNode, StyleType.TILT, "");
 
         ConvertedTreeNode boldNode = tiltNode.getChilds().get(0);
@@ -103,7 +103,7 @@ public class NaverScrapperTest {
         --------BOLD, 목1 설명대제
         ------CONTENT, 목 제목1 설명
         ------CONTENT, 
-        --------UNDERBAR, 대제목 제목
+        --------UNDERLINE, 대제목 제목
         ------CONTENT, 1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목
         ------CONTENT, 
         --------TILT, 1 설명대제
@@ -129,8 +129,8 @@ public class NaverScrapperTest {
 
         ConvertedTreeNode childNode3 = paragraphNode.getChilds().get(3);
         NodeTestUtils.assertNodeTypeAndContent(childNode3, StyleType.CONTENT, "");
-        ConvertedTreeNode underbarNode3 = childNode3.getChilds().get(0);
-        NodeTestUtils.assertNodeTypeAndContent(underbarNode3, StyleType.UNDERBAR, "대제목 제목");
+        ConvertedTreeNode UnderlineNode3 = childNode3.getChilds().get(0);
+        NodeTestUtils.assertNodeTypeAndContent(UnderlineNode3, StyleType.UNDERLINE, "대제목 제목");
 
         ConvertedTreeNode childNode4 = paragraphNode.getChilds().get(4);
         NodeTestUtils.assertNodeTypeAndContent(childNode4, StyleType.CONTENT, "1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목1 설명대제목 제목");
@@ -272,7 +272,7 @@ public class NaverScrapperTest {
         --------TEXT, 
         ----------PARAGRAPH_DEFAULT, 
         ------------CONTENT, 
-        --------------UNDERBAR, 0, 1
+        --------------UNDERLINE, 0, 1
         ------COLUMN, 
         --------TEXT, 
         ----------PARAGRAPH_DEFAULT, 
@@ -313,8 +313,8 @@ public class NaverScrapperTest {
         NodeTestUtils.assertNodeTypeAndContent(colNode2, StyleType.COLUMN, "");
         contentNode = colNode2.getChilds().get(0).getChilds().get(0).getChilds().get(0);
         NodeTestUtils.assertNodeTypeAndContent(contentNode, StyleType.CONTENT, "");
-        ConvertedTreeNode underbarNode = contentNode.getChilds().get(0);
-        NodeTestUtils.assertNodeTypeAndContent(underbarNode, StyleType.UNDERBAR, "0, 1");
+        ConvertedTreeNode UnderlineNode = contentNode.getChilds().get(0);
+        NodeTestUtils.assertNodeTypeAndContent(UnderlineNode, StyleType.UNDERLINE, "0, 1");
 
         ConvertedTreeNode colNode3 = rowNode1.getChilds().get(2);
         NodeTestUtils.assertNodeTypeAndContent(colNode3, StyleType.COLUMN, "");

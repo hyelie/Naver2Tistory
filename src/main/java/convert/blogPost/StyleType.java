@@ -16,7 +16,7 @@ public enum StyleType {
                 LINK,
                 BOLD,
                 TILT,
-                UNDERBAR,
+                UNDERLINE,
                 STRIKE,
     CODE,
     IMAGE,
