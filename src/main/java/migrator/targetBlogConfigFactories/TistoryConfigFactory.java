@@ -1,4 +1,4 @@
-package migrator.TargetBlogConfigFactories;
+package migrator.targetBlogConfigFactories;
 
 import auth.AuthClient;
 import auth.TistoryClient;

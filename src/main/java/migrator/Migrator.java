@@ -11,7 +11,7 @@ import auth.AuthClient;
 import convert.blogPost.BlogPost;
 import convert.converters.Converter;
 import convert.scrappers.Scrapper;
-import migrator.TargetBlogConfigFactories.TistoryConfigFactory;
+import migrator.targetBlogConfigFactories.TistoryConfigFactory;
 import urlprocessor.UrlProcessor;
 import utils.Utils;
 
