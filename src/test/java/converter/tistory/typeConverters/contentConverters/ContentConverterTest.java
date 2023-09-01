@@ -30,7 +30,7 @@ public class ContentConverterTest {
         ConvertResultVO convertResultVO = contentConverter.convertAndReturnNextNodes(contentNode);
 
         // then
-        String contentHtml = "<span></span>";
+        String contentHtml = "<content></content>";
         Document doc = Jsoup.parse(contentHtml);
         Element contentElement = doc.body().child(0);
 
