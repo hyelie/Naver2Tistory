@@ -45,7 +45,7 @@ public class Migrator {
             Utils.printMessage("[작업 중] : " + url);
             migratePost(url);
         }
-        Utils.printMessage("[작업 완료] 작업을 완료했습니다. 프로그램을 종료합니다.");
+        Utils.getInput("[작업 완료] 작업을 완료했습니다. 프로그램을 종료합니다.");
     }
 
     private BlogType getTargetBlogType(){
@@ -57,7 +57,11 @@ public class Migrator {
         BlogType targetBlogType = parseInput(input);
 
         if(targetBlogType == null){
-            Utils.printMessage("지원하지 않는 블로그 유형입니다. 프로그램을 종료합니다.");
+            Utils.getInput("지원하지 않는 블로그 유형입니다. 프로그램을 종료합니다.");
+            System.exit(1);
+        }
+        if(targetBlogType == BlogType.NONE){
+            Utils.getInput("사용자 입력으로 프로그램을 종료합니다.");
             System.exit(1);
         }
 
@@ -67,7 +71,7 @@ public class Migrator {
     private void configureTargetBlog(BlogType targetBlogType){
         TargetBlogConfigFactory targetBlogConfigFactory = getTargetBlogConfigureFactory(targetBlogType);
         if(targetBlogConfigFactory == null){
-            Utils.printMessage("지원하지 않는 블로그 유형입니다. 프로그램을 종료합니다.");
+            Utils.getInput("지원하지 않는 블로그 유형입니다. 프로그램을 종료합니다.");
             System.exit(1);
         }
 
