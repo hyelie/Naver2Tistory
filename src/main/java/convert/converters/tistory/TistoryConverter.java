@@ -6,6 +6,7 @@ import java.util.Map;
 import org.jsoup.nodes.Element;
 
 import auth.TistoryClient;
+import convert.blogPost.BlogPost;
 import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
 import convert.converters.Converter;
@@ -50,9 +51,8 @@ public class TistoryConverter implements Converter {
     }
 
     @Override
-    public String convert(ConvertedTreeNode root) {
-        Element convertedElement = traverseAndConvert(root);
-        //return convertedElement.outerHtml();
+    public String convert(BlogPost blogPost) {
+        Element convertedElement = traverseAndConvert(blogPost.getRoot());
         
         return encodeToUTF8(convertedElement.outerHtml());
     }
@@ -80,7 +80,7 @@ public class TistoryConverter implements Converter {
             return Utils.encodeToUTF8(origin);
         }
         catch(Exception e) {
-            System.out.println(e.getMessage() + " 인코딩을 취소합니다.");
+            Utils.printMessage(e.getMessage() + " 인코딩을 취소합니다.");
         }
         return origin;
     }
