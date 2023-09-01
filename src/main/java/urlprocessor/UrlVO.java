@@ -1,20 +1,12 @@
 package urlprocessor;
 
-// TODO : getter 고려
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import migrator.BlogType;
+
+@Getter
+@AllArgsConstructor
 public class UrlVO {
-    UrlType urlType;
+    BlogType urlType;
     String url;
-
-    public UrlVO(UrlType urlType, String url){
-        this.urlType = urlType;
-        this.url = url;
-    }
-
-    public UrlType getUrlType(){
-        return this.urlType;
-    }
-
-    public String getUrl(){
-        return this.url;
-    }
 }

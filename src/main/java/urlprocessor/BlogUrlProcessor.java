@@ -1,11 +1,13 @@
 package urlprocessor;
 
+import migrator.BlogType;
+
 // Implement this interface to preprocess other types of blog URLs.
 public interface BlogUrlProcessor {
     /**
      * @return blog type of each url processor
      */
-    public UrlType getUrlType();
+    public BlogType getUrlType();
 
     /**
      * Return true if inputUrl matches type of blog URL format, otherwise false.

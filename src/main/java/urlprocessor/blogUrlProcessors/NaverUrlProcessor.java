@@ -3,13 +3,13 @@ package urlprocessor.blogUrlProcessors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import migrator.BlogType;
 import urlprocessor.BlogUrlProcessor;
-import urlprocessor.UrlType;
 
 public class NaverUrlProcessor implements BlogUrlProcessor {
-    private static final UrlType TYPE = UrlType.NAVER;
+    private static final BlogType TYPE = BlogType.NAVER;
     @Override
-    public UrlType getUrlType(){
+    public BlogType getUrlType(){
         return TYPE;
     }
 

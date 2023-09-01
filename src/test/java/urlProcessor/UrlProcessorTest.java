@@ -1,8 +1,8 @@
 package urlProcessor;
 import org.junit.Test;
 
+import migrator.BlogType;
 import urlprocessor.UrlProcessor;
-import urlprocessor.UrlType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,16 +18,16 @@ public class UrlProcessorTest {
     @Test
     public void testNaverUrlType() throws Exception{
         // when
-        UrlType naverProcessedUrl1Type = urlProcessor.process(naverProcessedUrl1).getUrlType();
-        UrlType naverProcessedUrl2Type = urlProcessor.process(naverProcessedUrl2).getUrlType();
-        UrlType naverRawUrl1Type = urlProcessor.process(naverRawUrl1).getUrlType();
-        UrlType naverRawUrl2Type = urlProcessor.process(naverRawUrl2).getUrlType();
+        BlogType naverProcessedUrl1Type = urlProcessor.process(naverProcessedUrl1).getUrlType();
+        BlogType naverProcessedUrl2Type = urlProcessor.process(naverProcessedUrl2).getUrlType();
+        BlogType naverRawUrl1Type = urlProcessor.process(naverRawUrl1).getUrlType();
+        BlogType naverRawUrl2Type = urlProcessor.process(naverRawUrl2).getUrlType();
 
         // then
-        assertEquals(UrlType.NAVER, naverProcessedUrl1Type);
-        assertEquals(UrlType.NAVER, naverProcessedUrl2Type);
-        assertEquals(UrlType.NAVER, naverRawUrl1Type);
-        assertEquals(UrlType.NAVER, naverRawUrl2Type);
+        assertEquals(BlogType.NAVER, naverProcessedUrl1Type);
+        assertEquals(BlogType.NAVER, naverProcessedUrl2Type);
+        assertEquals(BlogType.NAVER, naverRawUrl1Type);
+        assertEquals(BlogType.NAVER, naverRawUrl2Type);
     }
     
     @Test

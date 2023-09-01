@@ -1,7 +1,7 @@
 package urlProcessor;
 import org.junit.Test;
 
-import urlprocessor.UrlType;
+import migrator.BlogType;
 import urlprocessor.blogUrlProcessors.NaverUrlProcessor;
 
 import static org.junit.Assert.assertEquals;
@@ -20,7 +20,7 @@ public class NaverUrlProcessorTest {
 
     @Test
     public void testUrlType(){
-        assertEquals(UrlType.NAVER, naverUrlProcessor.getUrlType());
+        assertEquals(BlogType.NAVER, naverUrlProcessor.getUrlType());
     }
 
     @Test
