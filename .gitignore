@@ -1,9 +1,8 @@
-.vscode/*
 .git/*
 *.class
 *.jpg
 API_KEY
-N2T/bin/*
-N2T/src/JRunner.java
-N2T/config_test.json
+bin/**/*.*
+src/JRunner.java
+config_test.json
 *.exe
