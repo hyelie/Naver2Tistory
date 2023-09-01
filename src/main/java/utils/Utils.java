@@ -16,17 +16,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Utils {
+    private static final Scanner scanner = new Scanner(System.in);
     /**
      * Print 'message', get input, and return.
      * @param message - showing message to user.
      * @return input string.
      */
     public static String getInput(String message){
-        Scanner scan = new Scanner(System.in); 
         System.out.println(message);
-        String inputString = scan.next();
-        scan.close();
+        String inputString = scanner.nextLine();
         return inputString;
+    }
+
+    public static void printMessage(String message){
+        System.out.println(message);
     }
 
     /**
@@ -37,7 +40,7 @@ public class Utils {
     public static List<String> readList(Path path) throws Exception{
         try {
             List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-            lines.stream().forEach(System.out::println);
+            // lines.stream().forEach(System.out::println);
             return lines;
         }
         catch (IOException e) {
@@ -61,7 +64,7 @@ public class Utils {
      * Get absolute path of config file
      */
     public static String getConfigPath(){
-        return Utils.getCurrentDirectory() + "/config.json";
+        return Utils.getCurrentDirectory() + "/config";
     }
 
     /**

@@ -28,11 +28,11 @@ public class TistoryClient implements AuthClient {
     }
 
     private void initializeFromConfig() throws Exception{
-        System.out.println("[검증 중] : /config/tistory.json 파일에 입력한 사용자 정보를 확인 중입니다.");
+        Utils.printMessage("[검증 시작] : /config/tistory.json 파일에 입력한 사용자 정보를 확인합니다.");
 
         try{
             JSONParser parser = new JSONParser();
-            Reader reader = new FileReader(Utils.getCurrentDirectory() + "/config/tistory.json");
+            Reader reader = new FileReader(Utils.getConfigPath() + "/tistory.json");
             JSONObject config = (JSONObject) parser.parse(reader);
             this.appId = (String) config.getOrDefault("APP_ID", null);
             this.secretKey = (String) config.getOrDefault("SECRET_KEY", null);
@@ -54,12 +54,13 @@ public class TistoryClient implements AuthClient {
     }
 
     public void authorize() throws Exception {
+        Utils.printMessage("[검증 중] : /config/tistory.json 파일에 입력한 사용자 정보를 검증합니다.");
         if (!isAccessTokenValid()) {
             openIssueCodeWindow();
             String accessToken = issueAccessToken();
             setAccessToken(accessToken);
         }
-        System.out.println("[검증 완료] : /config/tistory.json 파일에 입력한 사용자 정보를 확인했습니다.");
+        Utils.printMessage("[검증 완료] : /config/tistory.json 파일에 입력한 사용자 정보를 확인했습니다.");
     }
 
     /**
@@ -88,8 +89,8 @@ public class TistoryClient implements AuthClient {
                             + "response_type=code";
 
         try{
-            System.out.println("            다음 링크를 인터넷 창에 입력해 주세요.");
-            System.out.println("            " + issueCodeUrl);
+            Utils.printMessage("            다음 링크를 인터넷 창에 입력해 주세요.");
+            Utils.printMessage("            " + issueCodeUrl);
             Utils.openWindow(issueCodeUrl);
             this.code = Utils.getInput("            발급받은 Code를 입력해 주세요.");
         }

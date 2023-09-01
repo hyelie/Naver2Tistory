@@ -45,7 +45,7 @@ public class ImageConverter implements TypeConverter {
             return tistoryClient.uploadImageAndGetReplacer(imageByte);
         }
         catch (Exception e){
-            System.out.println("[티스토리 이미지 업로드 중 오류] : 해당 이미지를 올리지 않고 다음 작업을 진행합니다.");
+            Utils.printMessage("[티스토리 이미지 업로드 중 오류] : 해당 이미지를 올리지 않고 다음 작업을 진행합니다.");
         }
         return "";
     }

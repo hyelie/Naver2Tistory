@@ -25,7 +25,7 @@ public class ImageParser extends SectionParser {
             byte[] imageByte = Utils.downloadByteImage(imageSrc);
             imageContent = Utils.encodeByteToBase64(imageByte);
         } catch (Exception e) {
-            System.out.println("[이미지 전환 중 오류] : " + e.getMessage());
+            Utils.printMessage("[이미지 전환 중 오류] : " + e.getMessage());
         }
         ConvertedTreeNode imageByteNode = ConvertedTreeNode.builder().type(StyleType.IMAGEBASE64).content(imageContent).build();
         imageNode.appendChild(imageByteNode);
