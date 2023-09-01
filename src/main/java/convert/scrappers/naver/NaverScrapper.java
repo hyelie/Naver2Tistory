@@ -12,7 +12,7 @@ import org.jsoup.select.Elements;
 import convert.blogPost.BlogPost;
 import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
-import convert.scrappers.Scrapper;
+import convert.scrappers.BlogScrapper;
 import convert.scrappers.naver.sectionParsers.CodeParser;
 import convert.scrappers.naver.sectionParsers.DefaultParser;
 import convert.scrappers.naver.sectionParsers.HorizontalLineParser;
@@ -66,7 +66,7 @@ The text part of every layer consists of se-module-text. For example, the text o
 
 *** Therefore, all child classes SectionParser must call parseTextModule().
 */
-public class NaverScrapper extends Scrapper {
+public class NaverScrapper extends BlogScrapper {
     private static Map<String, SectionParser> parserMap = new HashMap<>();
     private static final String DEFAULT = "";
 

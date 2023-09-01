@@ -4,7 +4,7 @@ import org.junit.Test;
 import convert.blogPost.BlogPost;
 import convert.blogPost.ConvertedTreeNode;
 import convert.blogPost.StyleType;
-import convert.scrappers.Scrapper;
+import convert.scrappers.BlogScrapper;
 import convert.scrappers.naver.NaverScrapper;
 import utils.NodeTestUtils;
 import utils.Utils;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 
 public class NaverScrapperTest {
-    Scrapper naverScrapper = new NaverScrapper();
+    BlogScrapper naverScrapper = new NaverScrapper();
     BlogPost validPost, privatePost, nonExistPost;
 
     @Before
@@ -357,10 +357,10 @@ public class NaverScrapperTest {
         ConvertedTreeNode root = validPost.getRoot();
         ConvertedTreeNode imageNode = root.getChilds().get(13);
 
-        ConvertedTreeNode imagebyteNode = imageNode.getChilds().get(0);
+        ConvertedTreeNode imageBase64Node = imageNode.getChilds().get(0);
         String imageUrl = "https://blogpfthumb-phinf.pstatic.net/20120504_73/jhi990823_1336138420833_S02En4_jpg/wallpaper-33614.jpg";
-        String imageByte = new String(Utils.downloadByteImage(imageUrl));
-        NodeTestUtils.assertNodeTypeAndContent(imagebyteNode, StyleType.IMAGEBASE64, imageByte);
+        String imageBase64 = Utils.encodeByteToBase64(Utils.downloadByteImage(imageUrl));
+        NodeTestUtils.assertNodeTypeAndContent(imageBase64Node, StyleType.IMAGEBASE64, imageBase64);
 
         ConvertedTreeNode captionNode = imageNode.getChilds().get(1);
         NodeTestUtils.assertNodeTypeAndContent(captionNode, StyleType.CAPTION, "");
@@ -379,10 +379,10 @@ public class NaverScrapperTest {
         ConvertedTreeNode root = validPost.getRoot();
         ConvertedTreeNode imageNode = root.getChilds().get(14);
 
-        ConvertedTreeNode imagebyteNode = imageNode.getChilds().get(0);
+        ConvertedTreeNode imageBase64Node = imageNode.getChilds().get(0);
         String imageUrl = "https://blogpfthumb-phinf.pstatic.net/20120504_73/jhi990823_1336138420833_S02En4_jpg/wallpaper-33614.jpg";
-        String imageByte = new String(Utils.downloadByteImage(imageUrl));
-        NodeTestUtils.assertNodeTypeAndContent(imagebyteNode, StyleType.IMAGEBASE64, imageByte);
+        String imageBase64 = Utils.encodeByteToBase64(Utils.downloadByteImage(imageUrl));
+        NodeTestUtils.assertNodeTypeAndContent(imageBase64Node, StyleType.IMAGEBASE64, imageBase64);
 
         ConvertedTreeNode captionNode = imageNode.getChilds().get(1);
     }
@@ -393,7 +393,7 @@ public class NaverScrapperTest {
         for(int i = 0; i<depth; i++) result += "--";
         if(node.getType() == StyleType.IMAGEBASE64) result += node.getType();
         else result += node.getType() + ", " + node.getContent();
-        System.out.println(result);
+        Utils.printMessage(result);
 
         if(node.isLeaf()) return;
         for(ConvertedTreeNode child : node.getChilds()){
