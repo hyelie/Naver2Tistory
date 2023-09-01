@@ -28,7 +28,7 @@ public class TistoryClient implements AuthClient {
     }
 
     private void initializeFromConfig() throws Exception{
-        Utils.printMessage("[검증 시작] : /config/tistory.json 파일에 입력한 사용자 정보를 확인합니다.");
+        Utils.printMessage("[초기화 시작] : /config/tistory.json 파일에 입력한 사용자 정보를 확인합니다.");
 
         try{
             JSONParser parser = new JSONParser();
@@ -38,7 +38,7 @@ public class TistoryClient implements AuthClient {
             this.secretKey = (String) config.getOrDefault("SECRET_KEY", null);
             this.blogName = (String) config.getOrDefault("BLOG_NAME", null);
             this.accessToken = (String) config.getOrDefault("ACCESS_TOKEN", null);
-            if(this.appId == null || this.secretKey == null || this.blogName == null) throw new NullPointerException("[검증 실패] : /config/tistory.json 파일에 필수값이 없습니다.");
+            if(isNullOrEmpty(this.appId) || isNullOrEmpty(this.secretKey) || isNullOrEmpty(this.blogName)) throw new NullPointerException();
         }
         catch(Exception e){
             if(e instanceof FileNotFoundException){
@@ -53,14 +53,18 @@ public class TistoryClient implements AuthClient {
         }
     }
 
+    private Boolean isNullOrEmpty(String string){
+        return string == null || string.equals("");
+    }
+
     public void authorize() throws Exception {
-        Utils.printMessage("[검증 중] : /config/tistory.json 파일에 입력한 사용자 정보를 검증합니다.");
+        Utils.printMessage("[초기화 중] : /config/tistory.json 파일에 입력한 사용자 정보를 검증합니다.");
         if (!isAccessTokenValid()) {
             openIssueCodeWindow();
             String accessToken = issueAccessToken();
             setAccessToken(accessToken);
         }
-        Utils.printMessage("[검증 완료] : /config/tistory.json 파일에 입력한 사용자 정보를 확인했습니다.");
+        Utils.printMessage("[초기화 완료] : /config/tistory.json 파일에 입력한 사용자 정보를 확인했습니다.");
     }
 
     /**

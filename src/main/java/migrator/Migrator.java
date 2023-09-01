@@ -77,6 +77,10 @@ public class Migrator {
 
         this.authClient = targetBlogConfigFactory.createAuthClient();
         this.converter = targetBlogConfigFactory.createConverter(this.authClient);
+        if(this.authClient == null || this.converter == null){
+            Utils.getInput("[오류 발생] 초기화 중 오류가 발생해 프로그램을 종료합니다.");
+            System.exit(1);
+        }
     }
 
     private void printTargetBlogTypes(){
