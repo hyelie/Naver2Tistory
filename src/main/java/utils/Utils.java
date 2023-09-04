@@ -80,7 +80,7 @@ public class Utils {
      */
     public static void openWindow(String url){
         try{
-            //Desktop.getDesktop().browse(new URI(url)); // TODO: desktop에서 작동하는지 확인.
+            Desktop.getDesktop().browse(new URI(url));
         }
         catch(Exception E){
             return;

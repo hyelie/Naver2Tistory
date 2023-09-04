@@ -13,7 +13,7 @@ public class QuotationConverter implements TypeConverter {
     @Override
     public ConvertResultVO convertAndReturnNextNodes(ConvertedTreeNode quotationNode) {
         /*
-        quotation의 구조
+        structure of quotation
         --QUOTATION, 
         ----QUOTE, 
         ------TEXT, 
@@ -27,7 +27,7 @@ public class QuotationConverter implements TypeConverter {
 
         if(hasCite(quotationNode)){
             ConvertedTreeNode citeNode = quotationNode.getChilds().get(1);
-            ConvertedTreeNode newlineNode = ConvertedTreeNode.builder().type(StyleType.CONTENT).content("").build(); // 인용구와 피인용자 구분 위해 개행 삽입
+            ConvertedTreeNode newlineNode = ConvertedTreeNode.builder().type(StyleType.CONTENT).content("").build(); // Insert newline to distinguish quotation from cite
             nextNodes.add(newlineNode);
             nextNodes.addAll(citeNode.getChilds());
         }
