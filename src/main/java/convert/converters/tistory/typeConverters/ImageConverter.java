@@ -17,7 +17,7 @@ public class ImageConverter implements TypeConverter {
     @Override
     public ConvertResultVO convertAndReturnNextNodes(ConvertedTreeNode imageNode) {
         /*
-        imageNode의 구조
+        structure of imageNode
         --IMAGE, 
         ----IMAGEBASE64
         [----CAPTION, 

@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-leaf node만 Node.content가 ""이 아니다.
-일반 텍스트는 [TEXT - PARAGRAPH - CONTENT - [style]] 순서로 이루어진다.
-만약 style이 있는 경우 CONTENT 아래에 style에 해당하는 node가 더 붙고,
-style이 없는 경우 CONTENT에 바로 내용이 붙는다.
+Only the leaf node's content is not "".
+Plain text in this tree consists of the following order: [TEXT - PARAGRAPH - CONTENT - [style]].
+If there is a style, an additional node corresponding to the style is added under the CONTENT. example) [TEXT - PARAGRAPH - CONTENT - BOLD - UNDERLINE - CONTENT]
+If there is no style, the content is attached directly to CONTENT. example) [TEXT - PARAGRAPH - CONTENT]
 
-image의 경우 byte[] - string - byte[]로 변환하면 문제가 발생하기 때문에 base64로 인코딩한 값을 넣는다.
+In the case of image, problems occur when converting byte[] - string - byte[], so enter a base64 encoded value into node.content.
 */
 @Getter
 @Builder

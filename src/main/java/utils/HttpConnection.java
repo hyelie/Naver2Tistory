@@ -15,7 +15,7 @@ public class HttpConnection {
 	 * @throws Exception to caller while running this function.
 	 */
 	private static HttpConnectionVO getResponse(HttpURLConnection con) throws Exception{
-		// response code에 따라 input stream 지정
+		// Specify input stream according to response code
 		Integer responseCode = con.getResponseCode();
 		InputStream responseStream;
 		if(responseCode < HttpURLConnection.HTTP_BAD_REQUEST){
@@ -25,7 +25,7 @@ public class HttpConnection {
 			responseStream = con.getErrorStream();
 		}			
 
-		// 결과 출력
+		// Output result
 		BufferedReader in = new BufferedReader(new InputStreamReader(responseStream));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
